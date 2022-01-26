@@ -7,7 +7,7 @@ For u "JUST GIMME THAT" guys - The ZIP file is what u're looking for ^^
 written in C# on .Net 5.0
 Console only application
 
-As I'm completely new to all this coding stuff, this little app was made with the intention to be implemented in a little text based rpg for learning purposes.
+As I'm completely new to all this coding stuff, this little app was made with the intention of being implemented in a little text based rpg for learning purposes.
 Everyone is welcome to use the code. Please feel free to text me, if u have an idea for optimisation, or if I did something wrong concerning open source manners.
 
 (The programm virtualy lets you put dices of diverse kinds into a cup and roll them finaly.) 
