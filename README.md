@@ -1,6 +1,9 @@
 # simple_rpg_dices_console
 the name says everything functionwise I guess ^^
 
+For u "JUST GIMME THAT" guys - The ZIP file is what u're looking for ^^
+
+
 written in C# on .Net 5.0
 Console only application
 
