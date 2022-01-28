@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
+/*
 namespace simple_rpg_dice_console
 {
     #region dice classes
@@ -3517,3 +3517,4 @@ namespace simple_rpg_dice_console
         }
     }
 }
+*/
