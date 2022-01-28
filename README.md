@@ -14,7 +14,7 @@ Everyone is welcome to use the code. Please feel free to text me, if u have an i
 
 MANUAL:
 
-- Pick a dice by typping "x.Dy"
+- Pick a dice by typing "x.Dy"
 (x = amount)
 (y = dice size/kind/sort thingywhatever)
 (Example: 3D6 = program rolls three 6 sided dice. D20 = program rolls one 20 sided dice)
