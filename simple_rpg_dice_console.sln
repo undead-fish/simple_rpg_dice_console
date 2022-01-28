@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple_rpg_dices_console", "simple_rpg_dices_console.csproj", "{44D24289-FFFD-4E8F-ADA9-AB132D90B08A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simple_rpg_dice_console", "simple_rpg_dice_console.csproj", "{44D24289-FFFD-4E8F-ADA9-AB132D90B08A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
