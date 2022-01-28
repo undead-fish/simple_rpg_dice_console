@@ -199,7 +199,7 @@ namespace simple_rpg_dice_console
     }
     #endregion
 
-    internal class Program
+    internal class ProgramGER
     {
         static void Main(string[] args)
         {
