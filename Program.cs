@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace simple_rpg_dices_console
+namespace simple_rpg_dice_console
 {
     #region dice classes
     public class Dice   // Main dice class
@@ -216,9 +216,9 @@ namespace simple_rpg_dices_console
             }
             #endregion
 
-            #region Dices Ini
+            #region Dice Ini
 
-            D4 D4 = new D4("W4 Nr.1", 18139);      // Initializing the single dices for usage.
+            D4 D4 = new D4("W4 Nr.1", 18139);      // Initializing the single dice for usage.
             D4 D4_2 = new D4("W4 Nr.2", 39841);    // The intitial set value is just a random number from
             D4 D4_3 = new D4("W4 Nr.3", 57624);    // my mind to set the seeds starting points apart from each other,
             D4 D4_4 = new D4("W4 Nr.4", 38436);    // to get the thing even more fake randomized if possible.
@@ -296,7 +296,7 @@ namespace simple_rpg_dices_console
             D100 D100_10 = new D100("W100 Nr.10", 412980);
 
 
-            void RollAllDices()
+            void RollAllDice()
             {
                 D4.Roll();
                 D4_2.Roll();
@@ -376,7 +376,7 @@ namespace simple_rpg_dices_console
                 D100_10.Roll();
             }
 
-            void ShowAllDices()
+            void ShowAllDice()
             {
                 D4.Show();
                 D4_2.Show();
@@ -454,9 +454,9 @@ namespace simple_rpg_dices_console
                 D100_8.Show();
                 D100_9.Show();
                 D100_10.Show();
-            } //Shows all dices for testing purposes if needed
+            } //Shows all dice for testing purposes if needed
 
-            RollAllDices(); // first initial roll of all dices (otherwise all would show 1 at this point)
+            RollAllDice(); // first initial roll of all dice (otherwise all would show 1 at this point)
 
 
 
@@ -464,7 +464,8 @@ namespace simple_rpg_dices_console
 
             #region InGame callMethods
 
-            void callAllDices()
+            // Method to quickly roll and show all dice for testing purposes
+            void callAllDice()
             {
                 bool GoOn = true;
                 while (GoOn)
@@ -475,8 +476,8 @@ namespace simple_rpg_dices_console
 
                     if (inputchar == "j" | inputchar == "ja" | inputchar == "J" | inputchar == "Ja" | inputchar == "y" | inputchar == "Y" | inputchar == "yes" | inputchar == "Yes")
                     {
-                        RollAllDices();
-                        ShowAllDices();
+                        RollAllDice();
+                        ShowAllDice();
                         Console.WriteLine();
                     }
                     else
@@ -485,21 +486,22 @@ namespace simple_rpg_dices_console
                     }
 
                 }
-            }   // to quickly roll and show all dices for testing purposes
+            }
 
-            void callFreeDiceRoll() // main game method
+            // Main game method
+            void callFreeDiceRoll()
             {
                 bool start = true;
                 while (start)
                 {
-                    HashSet<Action> PlayersDices = new HashSet<Action>();    // Datastructure for showing played dices
-                    List<int> PlayersDicesValues = new List<int>();      // Datastructure for accumulating the results of played dices
+                    HashSet<Action> PlayersDice = new HashSet<Action>();    // Datastructure for showing played dice
+                    List<int> PlayersDiceValues = new List<int>();      // Datastructure for accumulating the results of played dice
                     bool GoOn = true;
                     bool GoOn1 = true;
 
                     while (GoOn)
                     {
-                        // callAllDices();
+                        Console.Clear();
                         Console.WriteLine();
                         Console.WriteLine("         {{{{{  Ok, Würfeln wir!  }}}}}");
                         Console.WriteLine();
@@ -507,428 +509,429 @@ namespace simple_rpg_dices_console
                         Console.WriteLine("                                                         (Du kannst insgesamt 10 Würfel je Sorte auf einmal spielen.");
                         Console.WriteLine("                                                         (Bitte nenne nur eine Würfelart zurzeit und diese nur einmal pro Durchgang.");
                         Console.WriteLine("                                                         (Wenn du einen Würfel ohne Vorzähler angibst(zB.: 'W6'), wird ein Würfel angenommen.");
+                        Console.WriteLine("                                                         (Siehe README.txt für mehr Info.");
                         Console.Write("     ");
 
                         while (GoOn1)
                         {
                             string inputDice = Console.ReadLine();
 
-                            #region if states - Player chooses dices
+                            #region if states - Player chooses dice
                             #region D4 If States
 
                             if (inputDice == "W4" ^ inputDice == "1W4" ^ inputDice == "w4" ^ inputDice == "1w4" ^ inputDice == "D4" ^ inputDice == "1D4" ^ inputDice == "d4" ^ inputDice == "1d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                             }
                             else if (inputDice == "2W4" ^ inputDice == "2w4" ^ inputDice == "2D4" ^ inputDice == "2d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                             }
                             else if (inputDice == "3W4" ^ inputDice == "3w4" ^ inputDice == "3D4" ^ inputDice == "3d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
-                                bool isD4_3Showin = PlayersDices.Contains(D4_3.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
+                                bool isD4_3Showin = PlayersDice.Contains(D4_3.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                                 if (!isD4_3Showin)
                                 {
                                     D4_3.Roll();
-                                    PlayersDices.Add(D4_3.Show);
-                                    PlayersDicesValues.Add(D4_3.getValue());
+                                    PlayersDice.Add(D4_3.Show);
+                                    PlayersDiceValues.Add(D4_3.getValue());
                                 }
                             }
                             else if (inputDice == "4W4" ^ inputDice == "4w4" ^ inputDice == "4D4" ^ inputDice == "4d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
-                                bool isD4_3Showin = PlayersDices.Contains(D4_3.Show);
-                                bool isD4_4Showin = PlayersDices.Contains(D4_4.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
+                                bool isD4_3Showin = PlayersDice.Contains(D4_3.Show);
+                                bool isD4_4Showin = PlayersDice.Contains(D4_4.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                                 if (!isD4_3Showin)
                                 {
                                     D4_3.Roll();
-                                    PlayersDices.Add(D4_3.Show);
-                                    PlayersDicesValues.Add(D4_3.getValue());
+                                    PlayersDice.Add(D4_3.Show);
+                                    PlayersDiceValues.Add(D4_3.getValue());
                                 }
                                 if (!isD4_4Showin)
                                 {
                                     D4_4.Roll();
-                                    PlayersDices.Add(D4_4.Show);
-                                    PlayersDicesValues.Add(D4_4.getValue());
+                                    PlayersDice.Add(D4_4.Show);
+                                    PlayersDiceValues.Add(D4_4.getValue());
                                 }
                             }
                             else if (inputDice == "5W4" ^ inputDice == "5w4" ^ inputDice == "5D4" ^ inputDice == "5d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
-                                bool isD4_3Showin = PlayersDices.Contains(D4_3.Show);
-                                bool isD4_4Showin = PlayersDices.Contains(D4_4.Show);
-                                bool isD4_5Showin = PlayersDices.Contains(D4_5.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
+                                bool isD4_3Showin = PlayersDice.Contains(D4_3.Show);
+                                bool isD4_4Showin = PlayersDice.Contains(D4_4.Show);
+                                bool isD4_5Showin = PlayersDice.Contains(D4_5.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                                 if (!isD4_3Showin)
                                 {
                                     D4_3.Roll();
-                                    PlayersDices.Add(D4_3.Show);
-                                    PlayersDicesValues.Add(D4_3.getValue());
+                                    PlayersDice.Add(D4_3.Show);
+                                    PlayersDiceValues.Add(D4_3.getValue());
                                 }
                                 if (!isD4_4Showin)
                                 {
                                     D4_4.Roll();
-                                    PlayersDices.Add(D4_4.Show);
-                                    PlayersDicesValues.Add(D4_4.getValue());
+                                    PlayersDice.Add(D4_4.Show);
+                                    PlayersDiceValues.Add(D4_4.getValue());
                                 }
                                 if (!isD4_5Showin)
                                 {
                                     D4_5.Roll();
-                                    PlayersDices.Add(D4_5.Show);
-                                    PlayersDicesValues.Add(D4_5.getValue());
+                                    PlayersDice.Add(D4_5.Show);
+                                    PlayersDiceValues.Add(D4_5.getValue());
                                 }
                             }
                             else if (inputDice == "6W4" ^ inputDice == "6w4" ^ inputDice == "6D4" ^ inputDice == "6d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
-                                bool isD4_3Showin = PlayersDices.Contains(D4_3.Show);
-                                bool isD4_4Showin = PlayersDices.Contains(D4_4.Show);
-                                bool isD4_5Showin = PlayersDices.Contains(D4_5.Show);
-                                bool isD4_6Showin = PlayersDices.Contains(D4_6.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
+                                bool isD4_3Showin = PlayersDice.Contains(D4_3.Show);
+                                bool isD4_4Showin = PlayersDice.Contains(D4_4.Show);
+                                bool isD4_5Showin = PlayersDice.Contains(D4_5.Show);
+                                bool isD4_6Showin = PlayersDice.Contains(D4_6.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                                 if (!isD4_3Showin)
                                 {
                                     D4_3.Roll();
-                                    PlayersDices.Add(D4_3.Show);
-                                    PlayersDicesValues.Add(D4_3.getValue());
+                                    PlayersDice.Add(D4_3.Show);
+                                    PlayersDiceValues.Add(D4_3.getValue());
                                 }
                                 if (!isD4_4Showin)
                                 {
                                     D4_4.Roll();
-                                    PlayersDices.Add(D4_4.Show);
-                                    PlayersDicesValues.Add(D4_4.getValue());
+                                    PlayersDice.Add(D4_4.Show);
+                                    PlayersDiceValues.Add(D4_4.getValue());
                                 }
                                 if (!isD4_5Showin)
                                 {
                                     D4_5.Roll();
-                                    PlayersDices.Add(D4_5.Show);
-                                    PlayersDicesValues.Add(D4_5.getValue());
+                                    PlayersDice.Add(D4_5.Show);
+                                    PlayersDiceValues.Add(D4_5.getValue());
                                 }
                                 if (!isD4_6Showin)
                                 {
                                     D4_6.Roll();
-                                    PlayersDices.Add(D4_6.Show);
-                                    PlayersDicesValues.Add(D4_6.getValue());
+                                    PlayersDice.Add(D4_6.Show);
+                                    PlayersDiceValues.Add(D4_6.getValue());
                                 }
                             }
                             else if (inputDice == "7W4" ^ inputDice == "7w4" ^ inputDice == "7D4" ^ inputDice == "7d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
-                                bool isD4_3Showin = PlayersDices.Contains(D4_3.Show);
-                                bool isD4_4Showin = PlayersDices.Contains(D4_4.Show);
-                                bool isD4_5Showin = PlayersDices.Contains(D4_5.Show);
-                                bool isD4_6Showin = PlayersDices.Contains(D4_6.Show);
-                                bool isD4_7Showin = PlayersDices.Contains(D4_7.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
+                                bool isD4_3Showin = PlayersDice.Contains(D4_3.Show);
+                                bool isD4_4Showin = PlayersDice.Contains(D4_4.Show);
+                                bool isD4_5Showin = PlayersDice.Contains(D4_5.Show);
+                                bool isD4_6Showin = PlayersDice.Contains(D4_6.Show);
+                                bool isD4_7Showin = PlayersDice.Contains(D4_7.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                                 if (!isD4_3Showin)
                                 {
                                     D4_3.Roll();
-                                    PlayersDices.Add(D4_3.Show);
-                                    PlayersDicesValues.Add(D4_3.getValue());
+                                    PlayersDice.Add(D4_3.Show);
+                                    PlayersDiceValues.Add(D4_3.getValue());
                                 }
                                 if (!isD4_4Showin)
                                 {
                                     D4_4.Roll();
-                                    PlayersDices.Add(D4_4.Show);
-                                    PlayersDicesValues.Add(D4_4.getValue());
+                                    PlayersDice.Add(D4_4.Show);
+                                    PlayersDiceValues.Add(D4_4.getValue());
                                 }
                                 if (!isD4_5Showin)
                                 {
                                     D4_5.Roll();
-                                    PlayersDices.Add(D4_5.Show);
-                                    PlayersDicesValues.Add(D4_5.getValue());
+                                    PlayersDice.Add(D4_5.Show);
+                                    PlayersDiceValues.Add(D4_5.getValue());
                                 }
                                 if (!isD4_6Showin)
                                 {
                                     D4_6.Roll();
-                                    PlayersDices.Add(D4_6.Show);
-                                    PlayersDicesValues.Add(D4_6.getValue());
+                                    PlayersDice.Add(D4_6.Show);
+                                    PlayersDiceValues.Add(D4_6.getValue());
                                 }
                                 if (!isD4_7Showin)
                                 {
                                     D4_7.Roll();
-                                    PlayersDices.Add(D4_7.Show);
-                                    PlayersDicesValues.Add(D4_7.getValue());
+                                    PlayersDice.Add(D4_7.Show);
+                                    PlayersDiceValues.Add(D4_7.getValue());
                                 }
                             }
                             else if (inputDice == "8W4" ^ inputDice == "8w4" ^ inputDice == "8D4" ^ inputDice == "8d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
-                                bool isD4_3Showin = PlayersDices.Contains(D4_3.Show);
-                                bool isD4_4Showin = PlayersDices.Contains(D4_4.Show);
-                                bool isD4_5Showin = PlayersDices.Contains(D4_5.Show);
-                                bool isD4_6Showin = PlayersDices.Contains(D4_6.Show);
-                                bool isD4_7Showin = PlayersDices.Contains(D4_7.Show);
-                                bool isD4_8Showin = PlayersDices.Contains(D4_8.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
+                                bool isD4_3Showin = PlayersDice.Contains(D4_3.Show);
+                                bool isD4_4Showin = PlayersDice.Contains(D4_4.Show);
+                                bool isD4_5Showin = PlayersDice.Contains(D4_5.Show);
+                                bool isD4_6Showin = PlayersDice.Contains(D4_6.Show);
+                                bool isD4_7Showin = PlayersDice.Contains(D4_7.Show);
+                                bool isD4_8Showin = PlayersDice.Contains(D4_8.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                                 if (!isD4_3Showin)
                                 {
                                     D4_3.Roll();
-                                    PlayersDices.Add(D4_3.Show);
-                                    PlayersDicesValues.Add(D4_3.getValue());
+                                    PlayersDice.Add(D4_3.Show);
+                                    PlayersDiceValues.Add(D4_3.getValue());
                                 }
                                 if (!isD4_4Showin)
                                 {
                                     D4_4.Roll();
-                                    PlayersDices.Add(D4_4.Show);
-                                    PlayersDicesValues.Add(D4_4.getValue());
+                                    PlayersDice.Add(D4_4.Show);
+                                    PlayersDiceValues.Add(D4_4.getValue());
                                 }
                                 if (!isD4_5Showin)
                                 {
                                     D4_5.Roll();
-                                    PlayersDices.Add(D4_5.Show);
-                                    PlayersDicesValues.Add(D4_5.getValue());
+                                    PlayersDice.Add(D4_5.Show);
+                                    PlayersDiceValues.Add(D4_5.getValue());
                                 }
                                 if (!isD4_6Showin)
                                 {
                                     D4_6.Roll();
-                                    PlayersDices.Add(D4_6.Show);
-                                    PlayersDicesValues.Add(D4_6.getValue());
+                                    PlayersDice.Add(D4_6.Show);
+                                    PlayersDiceValues.Add(D4_6.getValue());
                                 }
                                 if (!isD4_7Showin)
                                 {
                                     D4_7.Roll();
-                                    PlayersDices.Add(D4_7.Show);
-                                    PlayersDicesValues.Add(D4_7.getValue());
+                                    PlayersDice.Add(D4_7.Show);
+                                    PlayersDiceValues.Add(D4_7.getValue());
                                 }
                                 if (!isD4_8Showin)
                                 {
                                     D4_8.Roll();
-                                    PlayersDices.Add(D4_8.Show);
-                                    PlayersDicesValues.Add(D4_8.getValue());
+                                    PlayersDice.Add(D4_8.Show);
+                                    PlayersDiceValues.Add(D4_8.getValue());
                                 }
                             }
                             else if (inputDice == "9W4" ^ inputDice == "9w4" ^ inputDice == "9D4" ^ inputDice == "9d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
-                                bool isD4_3Showin = PlayersDices.Contains(D4_3.Show);
-                                bool isD4_4Showin = PlayersDices.Contains(D4_4.Show);
-                                bool isD4_5Showin = PlayersDices.Contains(D4_5.Show);
-                                bool isD4_6Showin = PlayersDices.Contains(D4_6.Show);
-                                bool isD4_7Showin = PlayersDices.Contains(D4_7.Show);
-                                bool isD4_8Showin = PlayersDices.Contains(D4_8.Show);
-                                bool isD4_9Showin = PlayersDices.Contains(D4_9.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
+                                bool isD4_3Showin = PlayersDice.Contains(D4_3.Show);
+                                bool isD4_4Showin = PlayersDice.Contains(D4_4.Show);
+                                bool isD4_5Showin = PlayersDice.Contains(D4_5.Show);
+                                bool isD4_6Showin = PlayersDice.Contains(D4_6.Show);
+                                bool isD4_7Showin = PlayersDice.Contains(D4_7.Show);
+                                bool isD4_8Showin = PlayersDice.Contains(D4_8.Show);
+                                bool isD4_9Showin = PlayersDice.Contains(D4_9.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                                 if (!isD4_3Showin)
                                 {
                                     D4_3.Roll();
-                                    PlayersDices.Add(D4_3.Show);
-                                    PlayersDicesValues.Add(D4_3.getValue());
+                                    PlayersDice.Add(D4_3.Show);
+                                    PlayersDiceValues.Add(D4_3.getValue());
                                 }
                                 if (!isD4_4Showin)
                                 {
                                     D4_4.Roll();
-                                    PlayersDices.Add(D4_4.Show);
-                                    PlayersDicesValues.Add(D4_4.getValue());
+                                    PlayersDice.Add(D4_4.Show);
+                                    PlayersDiceValues.Add(D4_4.getValue());
                                 }
                                 if (!isD4_5Showin)
                                 {
                                     D4_5.Roll();
-                                    PlayersDices.Add(D4_5.Show);
-                                    PlayersDicesValues.Add(D4_5.getValue());
+                                    PlayersDice.Add(D4_5.Show);
+                                    PlayersDiceValues.Add(D4_5.getValue());
                                 }
                                 if (!isD4_6Showin)
                                 {
                                     D4_6.Roll();
-                                    PlayersDices.Add(D4_6.Show);
-                                    PlayersDicesValues.Add(D4_6.getValue());
+                                    PlayersDice.Add(D4_6.Show);
+                                    PlayersDiceValues.Add(D4_6.getValue());
                                 }
                                 if (!isD4_7Showin)
                                 {
                                     D4_7.Roll();
-                                    PlayersDices.Add(D4_7.Show);
-                                    PlayersDicesValues.Add(D4_7.getValue());
+                                    PlayersDice.Add(D4_7.Show);
+                                    PlayersDiceValues.Add(D4_7.getValue());
                                 }
                                 if (!isD4_8Showin)
                                 {
                                     D4_8.Roll();
-                                    PlayersDices.Add(D4_8.Show);
-                                    PlayersDicesValues.Add(D4_8.getValue());
+                                    PlayersDice.Add(D4_8.Show);
+                                    PlayersDiceValues.Add(D4_8.getValue());
                                 }
                                 if (!isD4_9Showin)
                                 {
                                     D4_9.Roll();
-                                    PlayersDices.Add(D4_9.Show);
-                                    PlayersDicesValues.Add(D4_9.getValue());
+                                    PlayersDice.Add(D4_9.Show);
+                                    PlayersDiceValues.Add(D4_9.getValue());
                                 }
                             }
                             else if (inputDice == "10W4" ^ inputDice == "10w4" ^ inputDice == "10D4" ^ inputDice == "10d4")
                             {
-                                bool isD4Showin = PlayersDices.Contains(D4.Show);
-                                bool isD4_2Showin = PlayersDices.Contains(D4_2.Show);
-                                bool isD4_3Showin = PlayersDices.Contains(D4_3.Show);
-                                bool isD4_4Showin = PlayersDices.Contains(D4_4.Show);
-                                bool isD4_5Showin = PlayersDices.Contains(D4_5.Show);
-                                bool isD4_6Showin = PlayersDices.Contains(D4_6.Show);
-                                bool isD4_7Showin = PlayersDices.Contains(D4_7.Show);
-                                bool isD4_8Showin = PlayersDices.Contains(D4_8.Show);
-                                bool isD4_9Showin = PlayersDices.Contains(D4_9.Show);
-                                bool isD4_10Showin = PlayersDices.Contains(D4_10.Show);
+                                bool isD4Showin = PlayersDice.Contains(D4.Show);
+                                bool isD4_2Showin = PlayersDice.Contains(D4_2.Show);
+                                bool isD4_3Showin = PlayersDice.Contains(D4_3.Show);
+                                bool isD4_4Showin = PlayersDice.Contains(D4_4.Show);
+                                bool isD4_5Showin = PlayersDice.Contains(D4_5.Show);
+                                bool isD4_6Showin = PlayersDice.Contains(D4_6.Show);
+                                bool isD4_7Showin = PlayersDice.Contains(D4_7.Show);
+                                bool isD4_8Showin = PlayersDice.Contains(D4_8.Show);
+                                bool isD4_9Showin = PlayersDice.Contains(D4_9.Show);
+                                bool isD4_10Showin = PlayersDice.Contains(D4_10.Show);
                                 if (!isD4Showin)
                                 {
                                     D4.Roll();
-                                    PlayersDices.Add(D4.Show);
-                                    PlayersDicesValues.Add(D4.getValue());
+                                    PlayersDice.Add(D4.Show);
+                                    PlayersDiceValues.Add(D4.getValue());
                                 }
                                 if (!isD4_2Showin)
                                 {
                                     D4_2.Roll();
-                                    PlayersDices.Add(D4_2.Show);
-                                    PlayersDicesValues.Add(D4_2.getValue());
+                                    PlayersDice.Add(D4_2.Show);
+                                    PlayersDiceValues.Add(D4_2.getValue());
                                 }
                                 if (!isD4_3Showin)
                                 {
                                     D4_3.Roll();
-                                    PlayersDices.Add(D4_3.Show);
-                                    PlayersDicesValues.Add(D4_3.getValue());
+                                    PlayersDice.Add(D4_3.Show);
+                                    PlayersDiceValues.Add(D4_3.getValue());
                                 }
                                 if (!isD4_4Showin)
                                 {
                                     D4_4.Roll();
-                                    PlayersDices.Add(D4_4.Show);
-                                    PlayersDicesValues.Add(D4_4.getValue());
+                                    PlayersDice.Add(D4_4.Show);
+                                    PlayersDiceValues.Add(D4_4.getValue());
                                 }
                                 if (!isD4_5Showin)
                                 {
                                     D4_5.Roll();
-                                    PlayersDices.Add(D4_5.Show);
-                                    PlayersDicesValues.Add(D4_5.getValue());
+                                    PlayersDice.Add(D4_5.Show);
+                                    PlayersDiceValues.Add(D4_5.getValue());
                                 }
                                 if (!isD4_6Showin)
                                 {
                                     D4_6.Roll();
-                                    PlayersDices.Add(D4_6.Show);
-                                    PlayersDicesValues.Add(D4_6.getValue());
+                                    PlayersDice.Add(D4_6.Show);
+                                    PlayersDiceValues.Add(D4_6.getValue());
                                 }
                                 if (!isD4_7Showin)
                                 {
                                     D4_7.Roll();
-                                    PlayersDices.Add(D4_7.Show);
-                                    PlayersDicesValues.Add(D4_7.getValue());
+                                    PlayersDice.Add(D4_7.Show);
+                                    PlayersDiceValues.Add(D4_7.getValue());
                                 }
                                 if (!isD4_8Showin)
                                 {
                                     D4_8.Roll();
-                                    PlayersDices.Add(D4_8.Show);
-                                    PlayersDicesValues.Add(D4_8.getValue());
+                                    PlayersDice.Add(D4_8.Show);
+                                    PlayersDiceValues.Add(D4_8.getValue());
                                 }
                                 if (!isD4_9Showin)
                                 {
                                     D4_9.Roll();
-                                    PlayersDices.Add(D4_9.Show);
-                                    PlayersDicesValues.Add(D4_9.getValue());
+                                    PlayersDice.Add(D4_9.Show);
+                                    PlayersDiceValues.Add(D4_9.getValue());
                                 }
                                 if (!isD4_10Showin)
                                 {
                                     D4_10.Roll();
-                                    PlayersDices.Add(D4_10.Show);
-                                    PlayersDicesValues.Add(D4_10.getValue());
+                                    PlayersDice.Add(D4_10.Show);
+                                    PlayersDiceValues.Add(D4_10.getValue());
                                 }
                             }
 
@@ -936,834 +939,834 @@ namespace simple_rpg_dices_console
                             #region D6 If States
                             else if (inputDice == "W6" ^ inputDice == "1W6" ^ inputDice == "w6" ^ inputDice == "1w6" ^ inputDice == "D6" ^ inputDice == "1D6" ^ inputDice == "d6" ^ inputDice == "1d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                             }
                             else if (inputDice == "2W6" ^ inputDice == "2w6" ^ inputDice == "2D6" ^ inputDice == "2d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                             }
                             else if (inputDice == "3W6" ^ inputDice == "3w6" ^ inputDice == "3D6" ^ inputDice == "3d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
-                                bool isD6_3Showin = PlayersDices.Contains(D6_3.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
+                                bool isD6_3Showin = PlayersDice.Contains(D6_3.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                                 if (!isD6_3Showin)
                                 {
                                     D6_3.Roll();
-                                    PlayersDices.Add(D6_3.Show);
-                                    PlayersDicesValues.Add(D6_3.getValue());
+                                    PlayersDice.Add(D6_3.Show);
+                                    PlayersDiceValues.Add(D6_3.getValue());
                                 }
                             }
                             else if (inputDice == "4W6" ^ inputDice == "4w6" ^ inputDice == "4D6" ^ inputDice == "4d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
-                                bool isD6_3Showin = PlayersDices.Contains(D6_3.Show);
-                                bool isD6_4Showin = PlayersDices.Contains(D6_4.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
+                                bool isD6_3Showin = PlayersDice.Contains(D6_3.Show);
+                                bool isD6_4Showin = PlayersDice.Contains(D6_4.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                                 if (!isD6_3Showin)
                                 {
                                     D6_3.Roll();
-                                    PlayersDices.Add(D6_3.Show);
-                                    PlayersDicesValues.Add(D6_3.getValue());
+                                    PlayersDice.Add(D6_3.Show);
+                                    PlayersDiceValues.Add(D6_3.getValue());
                                 }
                                 if (!isD6_4Showin)
                                 {
                                     D6_4.Roll();
-                                    PlayersDices.Add(D6_4.Show);
-                                    PlayersDicesValues.Add(D6_4.getValue());
+                                    PlayersDice.Add(D6_4.Show);
+                                    PlayersDiceValues.Add(D6_4.getValue());
                                 }
                             }
                             else if (inputDice == "5W6" ^ inputDice == "5w6" ^ inputDice == "5D6" ^ inputDice == "5d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
-                                bool isD6_3Showin = PlayersDices.Contains(D6_3.Show);
-                                bool isD6_4Showin = PlayersDices.Contains(D6_4.Show);
-                                bool isD6_5Showin = PlayersDices.Contains(D6_5.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
+                                bool isD6_3Showin = PlayersDice.Contains(D6_3.Show);
+                                bool isD6_4Showin = PlayersDice.Contains(D6_4.Show);
+                                bool isD6_5Showin = PlayersDice.Contains(D6_5.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                                 if (!isD6_3Showin)
                                 {
                                     D6_3.Roll();
-                                    PlayersDices.Add(D6_3.Show);
-                                    PlayersDicesValues.Add(D6_3.getValue());
+                                    PlayersDice.Add(D6_3.Show);
+                                    PlayersDiceValues.Add(D6_3.getValue());
                                 }
                                 if (!isD6_4Showin)
                                 {
                                     D6_4.Roll();
-                                    PlayersDices.Add(D6_4.Show);
-                                    PlayersDicesValues.Add(D6_4.getValue());
+                                    PlayersDice.Add(D6_4.Show);
+                                    PlayersDiceValues.Add(D6_4.getValue());
                                 }
                                 if (!isD6_5Showin)
                                 {
                                     D6_5.Roll();
-                                    PlayersDices.Add(D6_5.Show);
-                                    PlayersDicesValues.Add(D6_5.getValue());
+                                    PlayersDice.Add(D6_5.Show);
+                                    PlayersDiceValues.Add(D6_5.getValue());
                                 }
                             }
                             else if (inputDice == "6W6" ^ inputDice == "6w6" ^ inputDice == "6D6" ^ inputDice == "6d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
-                                bool isD6_3Showin = PlayersDices.Contains(D6_3.Show);
-                                bool isD6_4Showin = PlayersDices.Contains(D6_4.Show);
-                                bool isD6_5Showin = PlayersDices.Contains(D6_5.Show);
-                                bool isD6_6Showin = PlayersDices.Contains(D6_6.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
+                                bool isD6_3Showin = PlayersDice.Contains(D6_3.Show);
+                                bool isD6_4Showin = PlayersDice.Contains(D6_4.Show);
+                                bool isD6_5Showin = PlayersDice.Contains(D6_5.Show);
+                                bool isD6_6Showin = PlayersDice.Contains(D6_6.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                                 if (!isD6_3Showin)
                                 {
                                     D6_3.Roll();
-                                    PlayersDices.Add(D6_3.Show);
-                                    PlayersDicesValues.Add(D6_3.getValue());
+                                    PlayersDice.Add(D6_3.Show);
+                                    PlayersDiceValues.Add(D6_3.getValue());
                                 }
                                 if (!isD6_4Showin)
                                 {
                                     D6_4.Roll();
-                                    PlayersDices.Add(D6_4.Show);
-                                    PlayersDicesValues.Add(D6_4.getValue());
+                                    PlayersDice.Add(D6_4.Show);
+                                    PlayersDiceValues.Add(D6_4.getValue());
                                 }
                                 if (!isD6_5Showin)
                                 {
                                     D6_5.Roll();
-                                    PlayersDices.Add(D6_5.Show);
-                                    PlayersDicesValues.Add(D6_5.getValue());
+                                    PlayersDice.Add(D6_5.Show);
+                                    PlayersDiceValues.Add(D6_5.getValue());
                                 }
                                 if (!isD6_6Showin)
                                 {
                                     D6_6.Roll();
-                                    PlayersDices.Add(D6_6.Show);
-                                    PlayersDicesValues.Add(D6_6.getValue());
+                                    PlayersDice.Add(D6_6.Show);
+                                    PlayersDiceValues.Add(D6_6.getValue());
                                 }
                             }
                             else if (inputDice == "7W6" ^ inputDice == "7w6" ^ inputDice == "7D6" ^ inputDice == "7d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
-                                bool isD6_3Showin = PlayersDices.Contains(D6_3.Show);
-                                bool isD6_4Showin = PlayersDices.Contains(D6_4.Show);
-                                bool isD6_5Showin = PlayersDices.Contains(D6_5.Show);
-                                bool isD6_6Showin = PlayersDices.Contains(D6_6.Show);
-                                bool isD6_7Showin = PlayersDices.Contains(D6_7.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
+                                bool isD6_3Showin = PlayersDice.Contains(D6_3.Show);
+                                bool isD6_4Showin = PlayersDice.Contains(D6_4.Show);
+                                bool isD6_5Showin = PlayersDice.Contains(D6_5.Show);
+                                bool isD6_6Showin = PlayersDice.Contains(D6_6.Show);
+                                bool isD6_7Showin = PlayersDice.Contains(D6_7.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                                 if (!isD6_3Showin)
                                 {
                                     D6_3.Roll();
-                                    PlayersDices.Add(D6_3.Show);
-                                    PlayersDicesValues.Add(D6_3.getValue());
+                                    PlayersDice.Add(D6_3.Show);
+                                    PlayersDiceValues.Add(D6_3.getValue());
                                 }
                                 if (!isD6_4Showin)
                                 {
                                     D6_4.Roll();
-                                    PlayersDices.Add(D6_4.Show);
-                                    PlayersDicesValues.Add(D6_4.getValue());
+                                    PlayersDice.Add(D6_4.Show);
+                                    PlayersDiceValues.Add(D6_4.getValue());
                                 }
                                 if (!isD6_5Showin)
                                 {
                                     D6_5.Roll();
-                                    PlayersDices.Add(D6_5.Show);
-                                    PlayersDicesValues.Add(D6_5.getValue());
+                                    PlayersDice.Add(D6_5.Show);
+                                    PlayersDiceValues.Add(D6_5.getValue());
                                 }
                                 if (!isD6_6Showin)
                                 {
                                     D6_6.Roll();
-                                    PlayersDices.Add(D6_6.Show);
-                                    PlayersDicesValues.Add(D6_6.getValue());
+                                    PlayersDice.Add(D6_6.Show);
+                                    PlayersDiceValues.Add(D6_6.getValue());
                                 }
                                 if (!isD6_7Showin)
                                 {
                                     D6_7.Roll();
-                                    PlayersDices.Add(D6_7.Show);
-                                    PlayersDicesValues.Add(D6_7.getValue());
+                                    PlayersDice.Add(D6_7.Show);
+                                    PlayersDiceValues.Add(D6_7.getValue());
                                 }
                             }
                             else if (inputDice == "8W6" ^ inputDice == "8w6" ^ inputDice == "8D6" ^ inputDice == "8d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
-                                bool isD6_3Showin = PlayersDices.Contains(D6_3.Show);
-                                bool isD6_4Showin = PlayersDices.Contains(D6_4.Show);
-                                bool isD6_5Showin = PlayersDices.Contains(D6_5.Show);
-                                bool isD6_6Showin = PlayersDices.Contains(D6_6.Show);
-                                bool isD6_7Showin = PlayersDices.Contains(D6_7.Show);
-                                bool isD6_8Showin = PlayersDices.Contains(D6_8.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
+                                bool isD6_3Showin = PlayersDice.Contains(D6_3.Show);
+                                bool isD6_4Showin = PlayersDice.Contains(D6_4.Show);
+                                bool isD6_5Showin = PlayersDice.Contains(D6_5.Show);
+                                bool isD6_6Showin = PlayersDice.Contains(D6_6.Show);
+                                bool isD6_7Showin = PlayersDice.Contains(D6_7.Show);
+                                bool isD6_8Showin = PlayersDice.Contains(D6_8.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                                 if (!isD6_3Showin)
                                 {
                                     D6_3.Roll();
-                                    PlayersDices.Add(D6_3.Show);
-                                    PlayersDicesValues.Add(D6_3.getValue());
+                                    PlayersDice.Add(D6_3.Show);
+                                    PlayersDiceValues.Add(D6_3.getValue());
                                 }
                                 if (!isD6_4Showin)
                                 {
                                     D6_4.Roll();
-                                    PlayersDices.Add(D6_4.Show);
-                                    PlayersDicesValues.Add(D6_4.getValue());
+                                    PlayersDice.Add(D6_4.Show);
+                                    PlayersDiceValues.Add(D6_4.getValue());
                                 }
                                 if (!isD6_5Showin)
                                 {
                                     D6_5.Roll();
-                                    PlayersDices.Add(D6_5.Show);
-                                    PlayersDicesValues.Add(D6_5.getValue());
+                                    PlayersDice.Add(D6_5.Show);
+                                    PlayersDiceValues.Add(D6_5.getValue());
                                 }
                                 if (!isD6_6Showin)
                                 {
                                     D6_6.Roll();
-                                    PlayersDices.Add(D6_6.Show);
-                                    PlayersDicesValues.Add(D6_6.getValue());
+                                    PlayersDice.Add(D6_6.Show);
+                                    PlayersDiceValues.Add(D6_6.getValue());
                                 }
                                 if (!isD6_7Showin)
                                 {
                                     D6_7.Roll();
-                                    PlayersDices.Add(D6_7.Show);
-                                    PlayersDicesValues.Add(D6_7.getValue());
+                                    PlayersDice.Add(D6_7.Show);
+                                    PlayersDiceValues.Add(D6_7.getValue());
                                 }
                                 if (!isD6_8Showin)
                                 {
                                     D6_8.Roll();
-                                    PlayersDices.Add(D6_8.Show);
-                                    PlayersDicesValues.Add(D6_8.getValue());
+                                    PlayersDice.Add(D6_8.Show);
+                                    PlayersDiceValues.Add(D6_8.getValue());
                                 }
                             }
                             else if (inputDice == "9W6" ^ inputDice == "9w6" ^ inputDice == "9D6" ^ inputDice == "9d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
-                                bool isD6_3Showin = PlayersDices.Contains(D6_3.Show);
-                                bool isD6_4Showin = PlayersDices.Contains(D6_4.Show);
-                                bool isD6_5Showin = PlayersDices.Contains(D6_5.Show);
-                                bool isD6_6Showin = PlayersDices.Contains(D6_6.Show);
-                                bool isD6_7Showin = PlayersDices.Contains(D6_7.Show);
-                                bool isD6_8Showin = PlayersDices.Contains(D6_8.Show);
-                                bool isD6_9Showin = PlayersDices.Contains(D6_9.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
+                                bool isD6_3Showin = PlayersDice.Contains(D6_3.Show);
+                                bool isD6_4Showin = PlayersDice.Contains(D6_4.Show);
+                                bool isD6_5Showin = PlayersDice.Contains(D6_5.Show);
+                                bool isD6_6Showin = PlayersDice.Contains(D6_6.Show);
+                                bool isD6_7Showin = PlayersDice.Contains(D6_7.Show);
+                                bool isD6_8Showin = PlayersDice.Contains(D6_8.Show);
+                                bool isD6_9Showin = PlayersDice.Contains(D6_9.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                                 if (!isD6_3Showin)
                                 {
                                     D6_3.Roll();
-                                    PlayersDices.Add(D6_3.Show);
-                                    PlayersDicesValues.Add(D6_3.getValue());
+                                    PlayersDice.Add(D6_3.Show);
+                                    PlayersDiceValues.Add(D6_3.getValue());
                                 }
                                 if (!isD6_4Showin)
                                 {
                                     D6_4.Roll();
-                                    PlayersDices.Add(D6_4.Show);
-                                    PlayersDicesValues.Add(D6_4.getValue());
+                                    PlayersDice.Add(D6_4.Show);
+                                    PlayersDiceValues.Add(D6_4.getValue());
                                 }
                                 if (!isD6_5Showin)
                                 {
                                     D6_5.Roll();
-                                    PlayersDices.Add(D6_5.Show);
-                                    PlayersDicesValues.Add(D6_5.getValue());
+                                    PlayersDice.Add(D6_5.Show);
+                                    PlayersDiceValues.Add(D6_5.getValue());
                                 }
                                 if (!isD6_6Showin)
                                 {
                                     D6_6.Roll();
-                                    PlayersDices.Add(D6_6.Show);
-                                    PlayersDicesValues.Add(D6_6.getValue());
+                                    PlayersDice.Add(D6_6.Show);
+                                    PlayersDiceValues.Add(D6_6.getValue());
                                 }
                                 if (!isD6_7Showin)
                                 {
                                     D6_7.Roll();
-                                    PlayersDices.Add(D6_7.Show);
-                                    PlayersDicesValues.Add(D6_7.getValue());
+                                    PlayersDice.Add(D6_7.Show);
+                                    PlayersDiceValues.Add(D6_7.getValue());
                                 }
                                 if (!isD6_8Showin)
                                 {
                                     D6_8.Roll();
-                                    PlayersDices.Add(D6_8.Show);
-                                    PlayersDicesValues.Add(D6_8.getValue());
+                                    PlayersDice.Add(D6_8.Show);
+                                    PlayersDiceValues.Add(D6_8.getValue());
                                 }
                                 if (!isD6_9Showin)
                                 {
                                     D6_9.Roll();
-                                    PlayersDices.Add(D6_9.Show);
-                                    PlayersDicesValues.Add(D6_9.getValue());
+                                    PlayersDice.Add(D6_9.Show);
+                                    PlayersDiceValues.Add(D6_9.getValue());
                                 }
                             }
                             else if (inputDice == "10W6" ^ inputDice == "10w6" ^ inputDice == "10D6" ^ inputDice == "10d6")
                             {
-                                bool isD6Showin = PlayersDices.Contains(D6.Show);
-                                bool isD6_2Showin = PlayersDices.Contains(D6_2.Show);
-                                bool isD6_3Showin = PlayersDices.Contains(D6_3.Show);
-                                bool isD6_4Showin = PlayersDices.Contains(D6_4.Show);
-                                bool isD6_5Showin = PlayersDices.Contains(D6_5.Show);
-                                bool isD6_6Showin = PlayersDices.Contains(D6_6.Show);
-                                bool isD6_7Showin = PlayersDices.Contains(D6_7.Show);
-                                bool isD6_8Showin = PlayersDices.Contains(D6_8.Show);
-                                bool isD6_9Showin = PlayersDices.Contains(D6_9.Show);
-                                bool isD6_10Showin = PlayersDices.Contains(D6_10.Show);
+                                bool isD6Showin = PlayersDice.Contains(D6.Show);
+                                bool isD6_2Showin = PlayersDice.Contains(D6_2.Show);
+                                bool isD6_3Showin = PlayersDice.Contains(D6_3.Show);
+                                bool isD6_4Showin = PlayersDice.Contains(D6_4.Show);
+                                bool isD6_5Showin = PlayersDice.Contains(D6_5.Show);
+                                bool isD6_6Showin = PlayersDice.Contains(D6_6.Show);
+                                bool isD6_7Showin = PlayersDice.Contains(D6_7.Show);
+                                bool isD6_8Showin = PlayersDice.Contains(D6_8.Show);
+                                bool isD6_9Showin = PlayersDice.Contains(D6_9.Show);
+                                bool isD6_10Showin = PlayersDice.Contains(D6_10.Show);
                                 if (!isD6Showin)
                                 {
                                     D6.Roll();
-                                    PlayersDices.Add(D6.Show);
-                                    PlayersDicesValues.Add(D6.getValue());
+                                    PlayersDice.Add(D6.Show);
+                                    PlayersDiceValues.Add(D6.getValue());
                                 }
                                 if (!isD6_2Showin)
                                 {
                                     D6_2.Roll();
-                                    PlayersDices.Add(D6_2.Show);
-                                    PlayersDicesValues.Add(D6_2.getValue());
+                                    PlayersDice.Add(D6_2.Show);
+                                    PlayersDiceValues.Add(D6_2.getValue());
                                 }
                                 if (!isD6_3Showin)
                                 {
                                     D6_3.Roll();
-                                    PlayersDices.Add(D6_3.Show);
-                                    PlayersDicesValues.Add(D6_3.getValue());
+                                    PlayersDice.Add(D6_3.Show);
+                                    PlayersDiceValues.Add(D6_3.getValue());
                                 }
                                 if (!isD6_4Showin)
                                 {
                                     D6_4.Roll();
-                                    PlayersDices.Add(D6_4.Show);
-                                    PlayersDicesValues.Add(D6_4.getValue());
+                                    PlayersDice.Add(D6_4.Show);
+                                    PlayersDiceValues.Add(D6_4.getValue());
                                 }
                                 if (!isD6_5Showin)
                                 {
                                     D6_5.Roll();
-                                    PlayersDices.Add(D6_5.Show);
-                                    PlayersDicesValues.Add(D6_5.getValue());
+                                    PlayersDice.Add(D6_5.Show);
+                                    PlayersDiceValues.Add(D6_5.getValue());
                                 }
                                 if (!isD6_6Showin)
                                 {
                                     D6_6.Roll();
-                                    PlayersDices.Add(D6_6.Show);
-                                    PlayersDicesValues.Add(D6_6.getValue());
+                                    PlayersDice.Add(D6_6.Show);
+                                    PlayersDiceValues.Add(D6_6.getValue());
                                 }
                                 if (!isD6_7Showin)
                                 {
                                     D6_7.Roll();
-                                    PlayersDices.Add(D6_7.Show);
-                                    PlayersDicesValues.Add(D6_7.getValue());
+                                    PlayersDice.Add(D6_7.Show);
+                                    PlayersDiceValues.Add(D6_7.getValue());
                                 }
                                 if (!isD6_8Showin)
                                 {
                                     D6_8.Roll();
-                                    PlayersDices.Add(D6_8.Show);
-                                    PlayersDicesValues.Add(D6_8.getValue());
+                                    PlayersDice.Add(D6_8.Show);
+                                    PlayersDiceValues.Add(D6_8.getValue());
                                 }
                                 if (!isD6_9Showin)
                                 {
                                     D6_9.Roll();
-                                    PlayersDices.Add(D6_9.Show);
-                                    PlayersDicesValues.Add(D6_9.getValue());
+                                    PlayersDice.Add(D6_9.Show);
+                                    PlayersDiceValues.Add(D6_9.getValue());
                                 }
                                 if (!isD6_10Showin)
                                 {
                                     D6_10.Roll();
-                                    PlayersDices.Add(D6_10.Show);
-                                    PlayersDicesValues.Add(D6_10.getValue());
+                                    PlayersDice.Add(D6_10.Show);
+                                    PlayersDiceValues.Add(D6_10.getValue());
                                 }
                             }
                             #endregion
                             #region D8 If States
                             else if (inputDice == "W8" ^ inputDice == "1W8" ^ inputDice == "w8" ^ inputDice == "1w8" ^ inputDice == "D8" ^ inputDice == "1D8" ^ inputDice == "d8" ^ inputDice == "1d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                             }
                             else if (inputDice == "2W8" ^ inputDice == "2w8" ^ inputDice == "2D8" ^ inputDice == "2d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                             }
                             else if (inputDice == "3W8" ^ inputDice == "3w8" ^ inputDice == "3D8" ^ inputDice == "3d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
-                                bool isD8_3Showin = PlayersDices.Contains(D8_3.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
+                                bool isD8_3Showin = PlayersDice.Contains(D8_3.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                                 if (!isD8_3Showin)
                                 {
                                     D8_3.Roll();
-                                    PlayersDices.Add(D8_3.Show);
-                                    PlayersDicesValues.Add(D8_3.getValue());
+                                    PlayersDice.Add(D8_3.Show);
+                                    PlayersDiceValues.Add(D8_3.getValue());
                                 }
                             }
                             else if (inputDice == "4W8" ^ inputDice == "4w8" ^ inputDice == "4D8" ^ inputDice == "4d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
-                                bool isD8_3Showin = PlayersDices.Contains(D8_3.Show);
-                                bool isD8_4Showin = PlayersDices.Contains(D8_4.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
+                                bool isD8_3Showin = PlayersDice.Contains(D8_3.Show);
+                                bool isD8_4Showin = PlayersDice.Contains(D8_4.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                                 if (!isD8_3Showin)
                                 {
                                     D8_3.Roll();
-                                    PlayersDices.Add(D8_3.Show);
-                                    PlayersDicesValues.Add(D8_3.getValue());
+                                    PlayersDice.Add(D8_3.Show);
+                                    PlayersDiceValues.Add(D8_3.getValue());
                                 }
                                 if (!isD8_4Showin)
                                 {
                                     D8_4.Roll();
-                                    PlayersDices.Add(D8_4.Show);
-                                    PlayersDicesValues.Add(D8_4.getValue());
+                                    PlayersDice.Add(D8_4.Show);
+                                    PlayersDiceValues.Add(D8_4.getValue());
                                 }
                             }
                             else if (inputDice == "5W8" ^ inputDice == "5w8" ^ inputDice == "5D8" ^ inputDice == "5d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
-                                bool isD8_3Showin = PlayersDices.Contains(D8_3.Show);
-                                bool isD8_4Showin = PlayersDices.Contains(D8_4.Show);
-                                bool isD8_5Showin = PlayersDices.Contains(D8_5.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
+                                bool isD8_3Showin = PlayersDice.Contains(D8_3.Show);
+                                bool isD8_4Showin = PlayersDice.Contains(D8_4.Show);
+                                bool isD8_5Showin = PlayersDice.Contains(D8_5.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                                 if (!isD8_3Showin)
                                 {
                                     D8_3.Roll();
-                                    PlayersDices.Add(D8_3.Show);
-                                    PlayersDicesValues.Add(D8_3.getValue());
+                                    PlayersDice.Add(D8_3.Show);
+                                    PlayersDiceValues.Add(D8_3.getValue());
                                 }
                                 if (!isD8_4Showin)
                                 {
                                     D8_4.Roll();
-                                    PlayersDices.Add(D8_4.Show);
-                                    PlayersDicesValues.Add(D8_4.getValue());
+                                    PlayersDice.Add(D8_4.Show);
+                                    PlayersDiceValues.Add(D8_4.getValue());
                                 }
                                 if (!isD8_5Showin)
                                 {
                                     D8_5.Roll();
-                                    PlayersDices.Add(D8_5.Show);
-                                    PlayersDicesValues.Add(D8_5.getValue());
+                                    PlayersDice.Add(D8_5.Show);
+                                    PlayersDiceValues.Add(D8_5.getValue());
                                 }
                             }
                             else if (inputDice == "6W8" ^ inputDice == "6w8" ^ inputDice == "6D8" ^ inputDice == "6d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
-                                bool isD8_3Showin = PlayersDices.Contains(D8_3.Show);
-                                bool isD8_4Showin = PlayersDices.Contains(D8_4.Show);
-                                bool isD8_5Showin = PlayersDices.Contains(D8_5.Show);
-                                bool isD8_6Showin = PlayersDices.Contains(D8_6.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
+                                bool isD8_3Showin = PlayersDice.Contains(D8_3.Show);
+                                bool isD8_4Showin = PlayersDice.Contains(D8_4.Show);
+                                bool isD8_5Showin = PlayersDice.Contains(D8_5.Show);
+                                bool isD8_6Showin = PlayersDice.Contains(D8_6.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                                 if (!isD8_3Showin)
                                 {
                                     D8_3.Roll();
-                                    PlayersDices.Add(D8_3.Show);
-                                    PlayersDicesValues.Add(D8_3.getValue());
+                                    PlayersDice.Add(D8_3.Show);
+                                    PlayersDiceValues.Add(D8_3.getValue());
                                 }
                                 if (!isD8_4Showin)
                                 {
                                     D8_4.Roll();
-                                    PlayersDices.Add(D8_4.Show);
-                                    PlayersDicesValues.Add(D8_4.getValue());
+                                    PlayersDice.Add(D8_4.Show);
+                                    PlayersDiceValues.Add(D8_4.getValue());
                                 }
                                 if (!isD8_5Showin)
                                 {
                                     D8_5.Roll();
-                                    PlayersDices.Add(D8_5.Show);
-                                    PlayersDicesValues.Add(D8_5.getValue());
+                                    PlayersDice.Add(D8_5.Show);
+                                    PlayersDiceValues.Add(D8_5.getValue());
                                 }
                                 if (!isD8_6Showin)
                                 {
                                     D8_6.Roll();
-                                    PlayersDices.Add(D8_6.Show);
-                                    PlayersDicesValues.Add(D8_6.getValue());
+                                    PlayersDice.Add(D8_6.Show);
+                                    PlayersDiceValues.Add(D8_6.getValue());
                                 }
                             }
                             else if (inputDice == "7W8" ^ inputDice == "7w8" ^ inputDice == "7D8" ^ inputDice == "7d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
-                                bool isD8_3Showin = PlayersDices.Contains(D8_3.Show);
-                                bool isD8_4Showin = PlayersDices.Contains(D8_4.Show);
-                                bool isD8_5Showin = PlayersDices.Contains(D8_5.Show);
-                                bool isD8_6Showin = PlayersDices.Contains(D8_6.Show);
-                                bool isD8_7Showin = PlayersDices.Contains(D8_7.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
+                                bool isD8_3Showin = PlayersDice.Contains(D8_3.Show);
+                                bool isD8_4Showin = PlayersDice.Contains(D8_4.Show);
+                                bool isD8_5Showin = PlayersDice.Contains(D8_5.Show);
+                                bool isD8_6Showin = PlayersDice.Contains(D8_6.Show);
+                                bool isD8_7Showin = PlayersDice.Contains(D8_7.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                                 if (!isD8_3Showin)
                                 {
                                     D8_3.Roll();
-                                    PlayersDices.Add(D8_3.Show);
-                                    PlayersDicesValues.Add(D8_3.getValue());
+                                    PlayersDice.Add(D8_3.Show);
+                                    PlayersDiceValues.Add(D8_3.getValue());
                                 }
                                 if (!isD8_4Showin)
                                 {
                                     D8_4.Roll();
-                                    PlayersDices.Add(D8_4.Show);
-                                    PlayersDicesValues.Add(D8_4.getValue());
+                                    PlayersDice.Add(D8_4.Show);
+                                    PlayersDiceValues.Add(D8_4.getValue());
                                 }
                                 if (!isD8_5Showin)
                                 {
                                     D8_5.Roll();
-                                    PlayersDices.Add(D8_5.Show);
-                                    PlayersDicesValues.Add(D8_5.getValue());
+                                    PlayersDice.Add(D8_5.Show);
+                                    PlayersDiceValues.Add(D8_5.getValue());
                                 }
                                 if (!isD8_6Showin)
                                 {
                                     D8_6.Roll();
-                                    PlayersDices.Add(D8_6.Show);
-                                    PlayersDicesValues.Add(D8_6.getValue());
+                                    PlayersDice.Add(D8_6.Show);
+                                    PlayersDiceValues.Add(D8_6.getValue());
                                 }
                                 if (!isD8_7Showin)
                                 {
                                     D8_7.Roll();
-                                    PlayersDices.Add(D8_7.Show);
-                                    PlayersDicesValues.Add(D8_7.getValue());
+                                    PlayersDice.Add(D8_7.Show);
+                                    PlayersDiceValues.Add(D8_7.getValue());
                                 }
                             }
                             else if (inputDice == "8W8" ^ inputDice == "8w8" ^ inputDice == "8D8" ^ inputDice == "8d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
-                                bool isD8_3Showin = PlayersDices.Contains(D8_3.Show);
-                                bool isD8_4Showin = PlayersDices.Contains(D8_4.Show);
-                                bool isD8_5Showin = PlayersDices.Contains(D8_5.Show);
-                                bool isD8_6Showin = PlayersDices.Contains(D8_6.Show);
-                                bool isD8_7Showin = PlayersDices.Contains(D8_7.Show);
-                                bool isD8_8Showin = PlayersDices.Contains(D8_8.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
+                                bool isD8_3Showin = PlayersDice.Contains(D8_3.Show);
+                                bool isD8_4Showin = PlayersDice.Contains(D8_4.Show);
+                                bool isD8_5Showin = PlayersDice.Contains(D8_5.Show);
+                                bool isD8_6Showin = PlayersDice.Contains(D8_6.Show);
+                                bool isD8_7Showin = PlayersDice.Contains(D8_7.Show);
+                                bool isD8_8Showin = PlayersDice.Contains(D8_8.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                                 if (!isD8_3Showin)
                                 {
                                     D8_3.Roll();
-                                    PlayersDices.Add(D8_3.Show);
-                                    PlayersDicesValues.Add(D8_3.getValue());
+                                    PlayersDice.Add(D8_3.Show);
+                                    PlayersDiceValues.Add(D8_3.getValue());
                                 }
                                 if (!isD8_4Showin)
                                 {
                                     D8_4.Roll();
-                                    PlayersDices.Add(D8_4.Show);
-                                    PlayersDicesValues.Add(D8_4.getValue());
+                                    PlayersDice.Add(D8_4.Show);
+                                    PlayersDiceValues.Add(D8_4.getValue());
                                 }
                                 if (!isD8_5Showin)
                                 {
                                     D8_5.Roll();
-                                    PlayersDices.Add(D8_5.Show);
-                                    PlayersDicesValues.Add(D8_5.getValue());
+                                    PlayersDice.Add(D8_5.Show);
+                                    PlayersDiceValues.Add(D8_5.getValue());
                                 }
                                 if (!isD8_6Showin)
                                 {
                                     D8_6.Roll();
-                                    PlayersDices.Add(D8_6.Show);
-                                    PlayersDicesValues.Add(D8_6.getValue());
+                                    PlayersDice.Add(D8_6.Show);
+                                    PlayersDiceValues.Add(D8_6.getValue());
                                 }
                                 if (!isD8_7Showin)
                                 {
                                     D8_7.Roll();
-                                    PlayersDices.Add(D8_7.Show);
-                                    PlayersDicesValues.Add(D8_7.getValue());
+                                    PlayersDice.Add(D8_7.Show);
+                                    PlayersDiceValues.Add(D8_7.getValue());
                                 }
                                 if (!isD8_8Showin)
                                 {
                                     D8_8.Roll();
-                                    PlayersDices.Add(D8_8.Show);
-                                    PlayersDicesValues.Add(D8_8.getValue());
+                                    PlayersDice.Add(D8_8.Show);
+                                    PlayersDiceValues.Add(D8_8.getValue());
                                 }
                             }
                             else if (inputDice == "9W8" ^ inputDice == "9w8" ^ inputDice == "9D8" ^ inputDice == "9d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
-                                bool isD8_3Showin = PlayersDices.Contains(D8_3.Show);
-                                bool isD8_4Showin = PlayersDices.Contains(D8_4.Show);
-                                bool isD8_5Showin = PlayersDices.Contains(D8_5.Show);
-                                bool isD8_6Showin = PlayersDices.Contains(D8_6.Show);
-                                bool isD8_7Showin = PlayersDices.Contains(D8_7.Show);
-                                bool isD8_8Showin = PlayersDices.Contains(D8_8.Show);
-                                bool isD8_9Showin = PlayersDices.Contains(D8_9.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
+                                bool isD8_3Showin = PlayersDice.Contains(D8_3.Show);
+                                bool isD8_4Showin = PlayersDice.Contains(D8_4.Show);
+                                bool isD8_5Showin = PlayersDice.Contains(D8_5.Show);
+                                bool isD8_6Showin = PlayersDice.Contains(D8_6.Show);
+                                bool isD8_7Showin = PlayersDice.Contains(D8_7.Show);
+                                bool isD8_8Showin = PlayersDice.Contains(D8_8.Show);
+                                bool isD8_9Showin = PlayersDice.Contains(D8_9.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                                 if (!isD8_3Showin)
                                 {
                                     D8_3.Roll();
-                                    PlayersDices.Add(D8_3.Show);
-                                    PlayersDicesValues.Add(D8_3.getValue());
+                                    PlayersDice.Add(D8_3.Show);
+                                    PlayersDiceValues.Add(D8_3.getValue());
                                 }
                                 if (!isD8_4Showin)
                                 {
                                     D8_4.Roll();
-                                    PlayersDices.Add(D8_4.Show);
-                                    PlayersDicesValues.Add(D8_4.getValue());
+                                    PlayersDice.Add(D8_4.Show);
+                                    PlayersDiceValues.Add(D8_4.getValue());
                                 }
                                 if (!isD8_5Showin)
                                 {
                                     D8_5.Roll();
-                                    PlayersDices.Add(D8_5.Show);
-                                    PlayersDicesValues.Add(D8_5.getValue());
+                                    PlayersDice.Add(D8_5.Show);
+                                    PlayersDiceValues.Add(D8_5.getValue());
                                 }
                                 if (!isD8_6Showin)
                                 {
                                     D8_6.Roll();
-                                    PlayersDices.Add(D8_6.Show);
-                                    PlayersDicesValues.Add(D8_6.getValue());
+                                    PlayersDice.Add(D8_6.Show);
+                                    PlayersDiceValues.Add(D8_6.getValue());
                                 }
                                 if (!isD8_7Showin)
                                 {
                                     D8_7.Roll();
-                                    PlayersDices.Add(D8_7.Show);
-                                    PlayersDicesValues.Add(D8_7.getValue());
+                                    PlayersDice.Add(D8_7.Show);
+                                    PlayersDiceValues.Add(D8_7.getValue());
                                 }
                                 if (!isD8_8Showin)
                                 {
                                     D8_8.Roll();
-                                    PlayersDices.Add(D8_8.Show);
-                                    PlayersDicesValues.Add(D8_8.getValue());
+                                    PlayersDice.Add(D8_8.Show);
+                                    PlayersDiceValues.Add(D8_8.getValue());
                                 }
                                 if (!isD8_9Showin)
                                 {
                                     D8_9.Roll();
-                                    PlayersDices.Add(D8_9.Show);
-                                    PlayersDicesValues.Add(D8_9.getValue());
+                                    PlayersDice.Add(D8_9.Show);
+                                    PlayersDiceValues.Add(D8_9.getValue());
                                 }
                             }
                             else if (inputDice == "10W8" ^ inputDice == "10w8" ^ inputDice == "10D8" ^ inputDice == "10d8")
                             {
-                                bool isD8Showin = PlayersDices.Contains(D8.Show);
-                                bool isD8_2Showin = PlayersDices.Contains(D8_2.Show);
-                                bool isD8_3Showin = PlayersDices.Contains(D8_3.Show);
-                                bool isD8_4Showin = PlayersDices.Contains(D8_4.Show);
-                                bool isD8_5Showin = PlayersDices.Contains(D8_5.Show);
-                                bool isD8_6Showin = PlayersDices.Contains(D8_6.Show);
-                                bool isD8_7Showin = PlayersDices.Contains(D8_7.Show);
-                                bool isD8_8Showin = PlayersDices.Contains(D8_8.Show);
-                                bool isD8_9Showin = PlayersDices.Contains(D8_9.Show);
-                                bool isD8_10Showin = PlayersDices.Contains(D8_10.Show);
+                                bool isD8Showin = PlayersDice.Contains(D8.Show);
+                                bool isD8_2Showin = PlayersDice.Contains(D8_2.Show);
+                                bool isD8_3Showin = PlayersDice.Contains(D8_3.Show);
+                                bool isD8_4Showin = PlayersDice.Contains(D8_4.Show);
+                                bool isD8_5Showin = PlayersDice.Contains(D8_5.Show);
+                                bool isD8_6Showin = PlayersDice.Contains(D8_6.Show);
+                                bool isD8_7Showin = PlayersDice.Contains(D8_7.Show);
+                                bool isD8_8Showin = PlayersDice.Contains(D8_8.Show);
+                                bool isD8_9Showin = PlayersDice.Contains(D8_9.Show);
+                                bool isD8_10Showin = PlayersDice.Contains(D8_10.Show);
                                 if (!isD8Showin)
                                 {
                                     D8.Roll();
-                                    PlayersDices.Add(D8.Show);
-                                    PlayersDicesValues.Add(D8.getValue());
+                                    PlayersDice.Add(D8.Show);
+                                    PlayersDiceValues.Add(D8.getValue());
                                 }
                                 if (!isD8_2Showin)
                                 {
                                     D8_2.Roll();
-                                    PlayersDices.Add(D8_2.Show);
-                                    PlayersDicesValues.Add(D8_2.getValue());
+                                    PlayersDice.Add(D8_2.Show);
+                                    PlayersDiceValues.Add(D8_2.getValue());
                                 }
                                 if (!isD8_3Showin)
                                 {
                                     D8_3.Roll();
-                                    PlayersDices.Add(D8_3.Show);
-                                    PlayersDicesValues.Add(D8_3.getValue());
+                                    PlayersDice.Add(D8_3.Show);
+                                    PlayersDiceValues.Add(D8_3.getValue());
                                 }
                                 if (!isD8_4Showin)
                                 {
                                     D8_4.Roll();
-                                    PlayersDices.Add(D8_4.Show);
-                                    PlayersDicesValues.Add(D8_4.getValue());
+                                    PlayersDice.Add(D8_4.Show);
+                                    PlayersDiceValues.Add(D8_4.getValue());
                                 }
                                 if (!isD8_5Showin)
                                 {
                                     D8_5.Roll();
-                                    PlayersDices.Add(D8_5.Show);
-                                    PlayersDicesValues.Add(D8_5.getValue());
+                                    PlayersDice.Add(D8_5.Show);
+                                    PlayersDiceValues.Add(D8_5.getValue());
                                 }
                                 if (!isD8_6Showin)
                                 {
                                     D8_6.Roll();
-                                    PlayersDices.Add(D8_6.Show);
-                                    PlayersDicesValues.Add(D8_6.getValue());
+                                    PlayersDice.Add(D8_6.Show);
+                                    PlayersDiceValues.Add(D8_6.getValue());
                                 }
                                 if (!isD8_7Showin)
                                 {
                                     D8_7.Roll();
-                                    PlayersDices.Add(D8_7.Show);
-                                    PlayersDicesValues.Add(D8_7.getValue());
+                                    PlayersDice.Add(D8_7.Show);
+                                    PlayersDiceValues.Add(D8_7.getValue());
                                 }
                                 if (!isD8_8Showin)
                                 {
                                     D8_8.Roll();
-                                    PlayersDices.Add(D8_8.Show);
-                                    PlayersDicesValues.Add(D8_8.getValue());
+                                    PlayersDice.Add(D8_8.Show);
+                                    PlayersDiceValues.Add(D8_8.getValue());
                                 }
                                 if (!isD8_9Showin)
                                 {
                                     D8_9.Roll();
-                                    PlayersDices.Add(D8_9.Show);
-                                    PlayersDicesValues.Add(D8_9.getValue());
+                                    PlayersDice.Add(D8_9.Show);
+                                    PlayersDiceValues.Add(D8_9.getValue());
                                 }
                                 if (!isD8_10Showin)
                                 {
                                     D8_10.Roll();
-                                    PlayersDices.Add(D8_10.Show);
-                                    PlayersDicesValues.Add(D8_10.getValue());
+                                    PlayersDice.Add(D8_10.Show);
+                                    PlayersDiceValues.Add(D8_10.getValue());
                                 }
                             }
 
@@ -1771,1668 +1774,1668 @@ namespace simple_rpg_dices_console
                             #region D10 If States
                             else if (inputDice == "W10" ^ inputDice == "1W10" ^ inputDice == "w10" ^ inputDice == "1w10" ^ inputDice == "D10" ^ inputDice == "1D10" ^ inputDice == "d10" ^ inputDice == "1d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                             }
                             else if (inputDice == "2W10" ^ inputDice == "2w10" ^ inputDice == "2D10" ^ inputDice == "2d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                             }
                             else if (inputDice == "3W10" ^ inputDice == "3w10" ^ inputDice == "3D10" ^ inputDice == "3d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
-                                bool isD10_3Showin = PlayersDices.Contains(D10_3.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
+                                bool isD10_3Showin = PlayersDice.Contains(D10_3.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                                 if (!isD10_3Showin)
                                 {
                                     D10_3.Roll();
-                                    PlayersDices.Add(D10_3.Show);
-                                    PlayersDicesValues.Add(D10_3.getValue());
+                                    PlayersDice.Add(D10_3.Show);
+                                    PlayersDiceValues.Add(D10_3.getValue());
                                 }
                             }
                             else if (inputDice == "4W10" ^ inputDice == "4w10" ^ inputDice == "4D10" ^ inputDice == "4d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
-                                bool isD10_3Showin = PlayersDices.Contains(D10_3.Show);
-                                bool isD10_4Showin = PlayersDices.Contains(D10_4.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
+                                bool isD10_3Showin = PlayersDice.Contains(D10_3.Show);
+                                bool isD10_4Showin = PlayersDice.Contains(D10_4.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                                 if (!isD10_3Showin)
                                 {
                                     D10_3.Roll();
-                                    PlayersDices.Add(D10_3.Show);
-                                    PlayersDicesValues.Add(D10_3.getValue());
+                                    PlayersDice.Add(D10_3.Show);
+                                    PlayersDiceValues.Add(D10_3.getValue());
                                 }
                                 if (!isD10_4Showin)
                                 {
                                     D10_4.Roll();
-                                    PlayersDices.Add(D10_4.Show);
-                                    PlayersDicesValues.Add(D10_4.getValue());
+                                    PlayersDice.Add(D10_4.Show);
+                                    PlayersDiceValues.Add(D10_4.getValue());
                                 }
                             }
                             else if (inputDice == "5W10" ^ inputDice == "5w10" ^ inputDice == "5D10" ^ inputDice == "5d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
-                                bool isD10_3Showin = PlayersDices.Contains(D10_3.Show);
-                                bool isD10_4Showin = PlayersDices.Contains(D10_4.Show);
-                                bool isD10_5Showin = PlayersDices.Contains(D10_5.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
+                                bool isD10_3Showin = PlayersDice.Contains(D10_3.Show);
+                                bool isD10_4Showin = PlayersDice.Contains(D10_4.Show);
+                                bool isD10_5Showin = PlayersDice.Contains(D10_5.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                                 if (!isD10_3Showin)
                                 {
                                     D10_3.Roll();
-                                    PlayersDices.Add(D10_3.Show);
-                                    PlayersDicesValues.Add(D10_3.getValue());
+                                    PlayersDice.Add(D10_3.Show);
+                                    PlayersDiceValues.Add(D10_3.getValue());
                                 }
                                 if (!isD10_4Showin)
                                 {
                                     D10_4.Roll();
-                                    PlayersDices.Add(D10_4.Show);
-                                    PlayersDicesValues.Add(D10_4.getValue());
+                                    PlayersDice.Add(D10_4.Show);
+                                    PlayersDiceValues.Add(D10_4.getValue());
                                 }
                                 if (!isD10_5Showin)
                                 {
                                     D10_5.Roll();
-                                    PlayersDices.Add(D10_5.Show);
-                                    PlayersDicesValues.Add(D10_5.getValue());
+                                    PlayersDice.Add(D10_5.Show);
+                                    PlayersDiceValues.Add(D10_5.getValue());
                                 }
                             }
                             else if (inputDice == "6W10" ^ inputDice == "6w10" ^ inputDice == "6D10" ^ inputDice == "6d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
-                                bool isD10_3Showin = PlayersDices.Contains(D10_3.Show);
-                                bool isD10_4Showin = PlayersDices.Contains(D10_4.Show);
-                                bool isD10_5Showin = PlayersDices.Contains(D10_5.Show);
-                                bool isD10_6Showin = PlayersDices.Contains(D10_6.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
+                                bool isD10_3Showin = PlayersDice.Contains(D10_3.Show);
+                                bool isD10_4Showin = PlayersDice.Contains(D10_4.Show);
+                                bool isD10_5Showin = PlayersDice.Contains(D10_5.Show);
+                                bool isD10_6Showin = PlayersDice.Contains(D10_6.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                                 if (!isD10_3Showin)
                                 {
                                     D10_3.Roll();
-                                    PlayersDices.Add(D10_3.Show);
-                                    PlayersDicesValues.Add(D10_3.getValue());
+                                    PlayersDice.Add(D10_3.Show);
+                                    PlayersDiceValues.Add(D10_3.getValue());
                                 }
                                 if (!isD10_4Showin)
                                 {
                                     D10_4.Roll();
-                                    PlayersDices.Add(D10_4.Show);
-                                    PlayersDicesValues.Add(D10_4.getValue());
+                                    PlayersDice.Add(D10_4.Show);
+                                    PlayersDiceValues.Add(D10_4.getValue());
                                 }
                                 if (!isD10_5Showin)
                                 {
                                     D10_5.Roll();
-                                    PlayersDices.Add(D10_5.Show);
-                                    PlayersDicesValues.Add(D10_5.getValue());
+                                    PlayersDice.Add(D10_5.Show);
+                                    PlayersDiceValues.Add(D10_5.getValue());
                                 }
                                 if (!isD10_6Showin)
                                 {
                                     D10_6.Roll();
-                                    PlayersDices.Add(D10_6.Show);
-                                    PlayersDicesValues.Add(D10_6.getValue());
+                                    PlayersDice.Add(D10_6.Show);
+                                    PlayersDiceValues.Add(D10_6.getValue());
                                 }
                             }
                             else if (inputDice == "7W10" ^ inputDice == "7w10" ^ inputDice == "7D10" ^ inputDice == "7d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
-                                bool isD10_3Showin = PlayersDices.Contains(D10_3.Show);
-                                bool isD10_4Showin = PlayersDices.Contains(D10_4.Show);
-                                bool isD10_5Showin = PlayersDices.Contains(D10_5.Show);
-                                bool isD10_6Showin = PlayersDices.Contains(D10_6.Show);
-                                bool isD10_7Showin = PlayersDices.Contains(D10_7.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
+                                bool isD10_3Showin = PlayersDice.Contains(D10_3.Show);
+                                bool isD10_4Showin = PlayersDice.Contains(D10_4.Show);
+                                bool isD10_5Showin = PlayersDice.Contains(D10_5.Show);
+                                bool isD10_6Showin = PlayersDice.Contains(D10_6.Show);
+                                bool isD10_7Showin = PlayersDice.Contains(D10_7.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                                 if (!isD10_3Showin)
                                 {
                                     D10_3.Roll();
-                                    PlayersDices.Add(D10_3.Show);
-                                    PlayersDicesValues.Add(D10_3.getValue());
+                                    PlayersDice.Add(D10_3.Show);
+                                    PlayersDiceValues.Add(D10_3.getValue());
                                 }
                                 if (!isD10_4Showin)
                                 {
                                     D10_4.Roll();
-                                    PlayersDices.Add(D10_4.Show);
-                                    PlayersDicesValues.Add(D10_4.getValue());
+                                    PlayersDice.Add(D10_4.Show);
+                                    PlayersDiceValues.Add(D10_4.getValue());
                                 }
                                 if (!isD10_5Showin)
                                 {
                                     D10_5.Roll();
-                                    PlayersDices.Add(D10_5.Show);
-                                    PlayersDicesValues.Add(D10_5.getValue());
+                                    PlayersDice.Add(D10_5.Show);
+                                    PlayersDiceValues.Add(D10_5.getValue());
                                 }
                                 if (!isD10_6Showin)
                                 {
                                     D10_6.Roll();
-                                    PlayersDices.Add(D10_6.Show);
-                                    PlayersDicesValues.Add(D10_6.getValue());
+                                    PlayersDice.Add(D10_6.Show);
+                                    PlayersDiceValues.Add(D10_6.getValue());
                                 }
                                 if (!isD10_7Showin)
                                 {
                                     D10_7.Roll();
-                                    PlayersDices.Add(D10_7.Show);
-                                    PlayersDicesValues.Add(D10_7.getValue());
+                                    PlayersDice.Add(D10_7.Show);
+                                    PlayersDiceValues.Add(D10_7.getValue());
                                 }
                             }
                             else if (inputDice == "8W10" ^ inputDice == "8w10" ^ inputDice == "8D10" ^ inputDice == "8d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
-                                bool isD10_3Showin = PlayersDices.Contains(D10_3.Show);
-                                bool isD10_4Showin = PlayersDices.Contains(D10_4.Show);
-                                bool isD10_5Showin = PlayersDices.Contains(D10_5.Show);
-                                bool isD10_6Showin = PlayersDices.Contains(D10_6.Show);
-                                bool isD10_7Showin = PlayersDices.Contains(D10_7.Show);
-                                bool isD10_8Showin = PlayersDices.Contains(D10_8.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
+                                bool isD10_3Showin = PlayersDice.Contains(D10_3.Show);
+                                bool isD10_4Showin = PlayersDice.Contains(D10_4.Show);
+                                bool isD10_5Showin = PlayersDice.Contains(D10_5.Show);
+                                bool isD10_6Showin = PlayersDice.Contains(D10_6.Show);
+                                bool isD10_7Showin = PlayersDice.Contains(D10_7.Show);
+                                bool isD10_8Showin = PlayersDice.Contains(D10_8.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                                 if (!isD10_3Showin)
                                 {
                                     D10_3.Roll();
-                                    PlayersDices.Add(D10_3.Show);
-                                    PlayersDicesValues.Add(D10_3.getValue());
+                                    PlayersDice.Add(D10_3.Show);
+                                    PlayersDiceValues.Add(D10_3.getValue());
                                 }
                                 if (!isD10_4Showin)
                                 {
                                     D10_4.Roll();
-                                    PlayersDices.Add(D10_4.Show);
-                                    PlayersDicesValues.Add(D10_4.getValue());
+                                    PlayersDice.Add(D10_4.Show);
+                                    PlayersDiceValues.Add(D10_4.getValue());
                                 }
                                 if (!isD10_5Showin)
                                 {
                                     D10_5.Roll();
-                                    PlayersDices.Add(D10_5.Show);
-                                    PlayersDicesValues.Add(D10_5.getValue());
+                                    PlayersDice.Add(D10_5.Show);
+                                    PlayersDiceValues.Add(D10_5.getValue());
                                 }
                                 if (!isD10_6Showin)
                                 {
                                     D10_6.Roll();
-                                    PlayersDices.Add(D10_6.Show);
-                                    PlayersDicesValues.Add(D10_6.getValue());
+                                    PlayersDice.Add(D10_6.Show);
+                                    PlayersDiceValues.Add(D10_6.getValue());
                                 }
                                 if (!isD10_7Showin)
                                 {
                                     D10_7.Roll();
-                                    PlayersDices.Add(D10_7.Show);
-                                    PlayersDicesValues.Add(D10_7.getValue());
+                                    PlayersDice.Add(D10_7.Show);
+                                    PlayersDiceValues.Add(D10_7.getValue());
                                 }
                                 if (!isD10_8Showin)
                                 {
                                     D10_8.Roll();
-                                    PlayersDices.Add(D10_8.Show);
-                                    PlayersDicesValues.Add(D10_8.getValue());
+                                    PlayersDice.Add(D10_8.Show);
+                                    PlayersDiceValues.Add(D10_8.getValue());
                                 }
                             }
                             else if (inputDice == "9W10" ^ inputDice == "9w10" ^ inputDice == "9D10" ^ inputDice == "9d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
-                                bool isD10_3Showin = PlayersDices.Contains(D10_3.Show);
-                                bool isD10_4Showin = PlayersDices.Contains(D10_4.Show);
-                                bool isD10_5Showin = PlayersDices.Contains(D10_5.Show);
-                                bool isD10_6Showin = PlayersDices.Contains(D10_6.Show);
-                                bool isD10_7Showin = PlayersDices.Contains(D10_7.Show);
-                                bool isD10_8Showin = PlayersDices.Contains(D10_8.Show);
-                                bool isD10_9Showin = PlayersDices.Contains(D10_9.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
+                                bool isD10_3Showin = PlayersDice.Contains(D10_3.Show);
+                                bool isD10_4Showin = PlayersDice.Contains(D10_4.Show);
+                                bool isD10_5Showin = PlayersDice.Contains(D10_5.Show);
+                                bool isD10_6Showin = PlayersDice.Contains(D10_6.Show);
+                                bool isD10_7Showin = PlayersDice.Contains(D10_7.Show);
+                                bool isD10_8Showin = PlayersDice.Contains(D10_8.Show);
+                                bool isD10_9Showin = PlayersDice.Contains(D10_9.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                                 if (!isD10_3Showin)
                                 {
                                     D10_3.Roll();
-                                    PlayersDices.Add(D10_3.Show);
-                                    PlayersDicesValues.Add(D10_3.getValue());
+                                    PlayersDice.Add(D10_3.Show);
+                                    PlayersDiceValues.Add(D10_3.getValue());
                                 }
                                 if (!isD10_4Showin)
                                 {
                                     D10_4.Roll();
-                                    PlayersDices.Add(D10_4.Show);
-                                    PlayersDicesValues.Add(D10_4.getValue());
+                                    PlayersDice.Add(D10_4.Show);
+                                    PlayersDiceValues.Add(D10_4.getValue());
                                 }
                                 if (!isD10_5Showin)
                                 {
                                     D10_5.Roll();
-                                    PlayersDices.Add(D10_5.Show);
-                                    PlayersDicesValues.Add(D10_5.getValue());
+                                    PlayersDice.Add(D10_5.Show);
+                                    PlayersDiceValues.Add(D10_5.getValue());
                                 }
                                 if (!isD10_6Showin)
                                 {
                                     D10_6.Roll();
-                                    PlayersDices.Add(D10_6.Show);
-                                    PlayersDicesValues.Add(D10_6.getValue());
+                                    PlayersDice.Add(D10_6.Show);
+                                    PlayersDiceValues.Add(D10_6.getValue());
                                 }
                                 if (!isD10_7Showin)
                                 {
                                     D10_7.Roll();
-                                    PlayersDices.Add(D10_7.Show);
-                                    PlayersDicesValues.Add(D10_7.getValue());
+                                    PlayersDice.Add(D10_7.Show);
+                                    PlayersDiceValues.Add(D10_7.getValue());
                                 }
                                 if (!isD10_8Showin)
                                 {
                                     D10_8.Roll();
-                                    PlayersDices.Add(D10_8.Show);
-                                    PlayersDicesValues.Add(D10_8.getValue());
+                                    PlayersDice.Add(D10_8.Show);
+                                    PlayersDiceValues.Add(D10_8.getValue());
                                 }
                                 if (!isD10_9Showin)
                                 {
                                     D10_9.Roll();
-                                    PlayersDices.Add(D10_9.Show);
-                                    PlayersDicesValues.Add(D10_9.getValue());
+                                    PlayersDice.Add(D10_9.Show);
+                                    PlayersDiceValues.Add(D10_9.getValue());
                                 }
                             }
                             else if (inputDice == "10W10" ^ inputDice == "10w10" ^ inputDice == "10D10" ^ inputDice == "10d10")
                             {
-                                bool isD10Showin = PlayersDices.Contains(D10.Show);
-                                bool isD10_2Showin = PlayersDices.Contains(D10_2.Show);
-                                bool isD10_3Showin = PlayersDices.Contains(D10_3.Show);
-                                bool isD10_4Showin = PlayersDices.Contains(D10_4.Show);
-                                bool isD10_5Showin = PlayersDices.Contains(D10_5.Show);
-                                bool isD10_6Showin = PlayersDices.Contains(D10_6.Show);
-                                bool isD10_7Showin = PlayersDices.Contains(D10_7.Show);
-                                bool isD10_8Showin = PlayersDices.Contains(D10_8.Show);
-                                bool isD10_9Showin = PlayersDices.Contains(D10_9.Show);
-                                bool isD10_10Showin = PlayersDices.Contains(D10_10.Show);
+                                bool isD10Showin = PlayersDice.Contains(D10.Show);
+                                bool isD10_2Showin = PlayersDice.Contains(D10_2.Show);
+                                bool isD10_3Showin = PlayersDice.Contains(D10_3.Show);
+                                bool isD10_4Showin = PlayersDice.Contains(D10_4.Show);
+                                bool isD10_5Showin = PlayersDice.Contains(D10_5.Show);
+                                bool isD10_6Showin = PlayersDice.Contains(D10_6.Show);
+                                bool isD10_7Showin = PlayersDice.Contains(D10_7.Show);
+                                bool isD10_8Showin = PlayersDice.Contains(D10_8.Show);
+                                bool isD10_9Showin = PlayersDice.Contains(D10_9.Show);
+                                bool isD10_10Showin = PlayersDice.Contains(D10_10.Show);
                                 if (!isD10Showin)
                                 {
                                     D10.Roll();
-                                    PlayersDices.Add(D10.Show);
-                                    PlayersDicesValues.Add(D10.getValue());
+                                    PlayersDice.Add(D10.Show);
+                                    PlayersDiceValues.Add(D10.getValue());
                                 }
                                 if (!isD10_2Showin)
                                 {
                                     D10_2.Roll();
-                                    PlayersDices.Add(D10_2.Show);
-                                    PlayersDicesValues.Add(D10_2.getValue());
+                                    PlayersDice.Add(D10_2.Show);
+                                    PlayersDiceValues.Add(D10_2.getValue());
                                 }
                                 if (!isD10_3Showin)
                                 {
                                     D10_3.Roll();
-                                    PlayersDices.Add(D10_3.Show);
-                                    PlayersDicesValues.Add(D10_3.getValue());
+                                    PlayersDice.Add(D10_3.Show);
+                                    PlayersDiceValues.Add(D10_3.getValue());
                                 }
                                 if (!isD10_4Showin)
                                 {
                                     D10_4.Roll();
-                                    PlayersDices.Add(D10_4.Show);
-                                    PlayersDicesValues.Add(D10_4.getValue());
+                                    PlayersDice.Add(D10_4.Show);
+                                    PlayersDiceValues.Add(D10_4.getValue());
                                 }
                                 if (!isD10_5Showin)
                                 {
                                     D10_5.Roll();
-                                    PlayersDices.Add(D10_5.Show);
-                                    PlayersDicesValues.Add(D10_5.getValue());
+                                    PlayersDice.Add(D10_5.Show);
+                                    PlayersDiceValues.Add(D10_5.getValue());
                                 }
                                 if (!isD10_6Showin)
                                 {
                                     D10_6.Roll();
-                                    PlayersDices.Add(D10_6.Show);
-                                    PlayersDicesValues.Add(D10_6.getValue());
+                                    PlayersDice.Add(D10_6.Show);
+                                    PlayersDiceValues.Add(D10_6.getValue());
                                 }
                                 if (!isD10_7Showin)
                                 {
                                     D10_7.Roll();
-                                    PlayersDices.Add(D10_7.Show);
-                                    PlayersDicesValues.Add(D10_7.getValue());
+                                    PlayersDice.Add(D10_7.Show);
+                                    PlayersDiceValues.Add(D10_7.getValue());
                                 }
                                 if (!isD10_8Showin)
                                 {
                                     D10_8.Roll();
-                                    PlayersDices.Add(D10_8.Show);
-                                    PlayersDicesValues.Add(D10_8.getValue());
+                                    PlayersDice.Add(D10_8.Show);
+                                    PlayersDiceValues.Add(D10_8.getValue());
                                 }
                                 if (!isD10_9Showin)
                                 {
                                     D10_9.Roll();
-                                    PlayersDices.Add(D10_9.Show);
-                                    PlayersDicesValues.Add(D10_9.getValue());
+                                    PlayersDice.Add(D10_9.Show);
+                                    PlayersDiceValues.Add(D10_9.getValue());
                                 }
                                 if (!isD10_10Showin)
                                 {
                                     D10_10.Roll();
-                                    PlayersDices.Add(D10_10.Show);
-                                    PlayersDicesValues.Add(D10_10.getValue());
+                                    PlayersDice.Add(D10_10.Show);
+                                    PlayersDiceValues.Add(D10_10.getValue());
                                 }
                             }
                             #endregion
                             #region D12 If States
                             else if (inputDice == "W12" ^ inputDice == "1W12" ^ inputDice == "w12" ^ inputDice == "1w12" ^ inputDice == "D12" ^ inputDice == "1D12" ^ inputDice == "d12" ^ inputDice == "1d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                             }
                             else if (inputDice == "2W12" ^ inputDice == "2w12" ^ inputDice == "2D12" ^ inputDice == "2d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                             }
                             else if (inputDice == "3W12" ^ inputDice == "3w12" ^ inputDice == "3D12" ^ inputDice == "3d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
-                                bool isD12_3Showin = PlayersDices.Contains(D12_3.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
+                                bool isD12_3Showin = PlayersDice.Contains(D12_3.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                                 if (!isD12_3Showin)
                                 {
                                     D12_3.Roll();
-                                    PlayersDices.Add(D12_3.Show);
-                                    PlayersDicesValues.Add(D12_3.getValue());
+                                    PlayersDice.Add(D12_3.Show);
+                                    PlayersDiceValues.Add(D12_3.getValue());
                                 }
                             }
                             else if (inputDice == "4W12" ^ inputDice == "4w12" ^ inputDice == "4D12" ^ inputDice == "4d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
-                                bool isD12_3Showin = PlayersDices.Contains(D12_3.Show);
-                                bool isD12_4Showin = PlayersDices.Contains(D12_4.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
+                                bool isD12_3Showin = PlayersDice.Contains(D12_3.Show);
+                                bool isD12_4Showin = PlayersDice.Contains(D12_4.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                                 if (!isD12_3Showin)
                                 {
                                     D12_3.Roll();
-                                    PlayersDices.Add(D12_3.Show);
-                                    PlayersDicesValues.Add(D12_3.getValue());
+                                    PlayersDice.Add(D12_3.Show);
+                                    PlayersDiceValues.Add(D12_3.getValue());
                                 }
                                 if (!isD12_4Showin)
                                 {
                                     D12_4.Roll();
-                                    PlayersDices.Add(D12_4.Show);
-                                    PlayersDicesValues.Add(D12_4.getValue());
+                                    PlayersDice.Add(D12_4.Show);
+                                    PlayersDiceValues.Add(D12_4.getValue());
                                 }
                             }
                             else if (inputDice == "5W12" ^ inputDice == "5w12" ^ inputDice == "5D12" ^ inputDice == "5d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
-                                bool isD12_3Showin = PlayersDices.Contains(D12_3.Show);
-                                bool isD12_4Showin = PlayersDices.Contains(D12_4.Show);
-                                bool isD12_5Showin = PlayersDices.Contains(D12_5.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
+                                bool isD12_3Showin = PlayersDice.Contains(D12_3.Show);
+                                bool isD12_4Showin = PlayersDice.Contains(D12_4.Show);
+                                bool isD12_5Showin = PlayersDice.Contains(D12_5.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                                 if (!isD12_3Showin)
                                 {
                                     D12_3.Roll();
-                                    PlayersDices.Add(D12_3.Show);
-                                    PlayersDicesValues.Add(D12_3.getValue());
+                                    PlayersDice.Add(D12_3.Show);
+                                    PlayersDiceValues.Add(D12_3.getValue());
                                 }
                                 if (!isD12_4Showin)
                                 {
                                     D12_4.Roll();
-                                    PlayersDices.Add(D12_4.Show);
-                                    PlayersDicesValues.Add(D12_4.getValue());
+                                    PlayersDice.Add(D12_4.Show);
+                                    PlayersDiceValues.Add(D12_4.getValue());
                                 }
                                 if (!isD12_5Showin)
                                 {
                                     D12_5.Roll();
-                                    PlayersDices.Add(D12_5.Show);
-                                    PlayersDicesValues.Add(D12_5.getValue());
+                                    PlayersDice.Add(D12_5.Show);
+                                    PlayersDiceValues.Add(D12_5.getValue());
                                 }
                             }
                             else if (inputDice == "6W12" ^ inputDice == "6w12" ^ inputDice == "6D12" ^ inputDice == "6d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
-                                bool isD12_3Showin = PlayersDices.Contains(D12_3.Show);
-                                bool isD12_4Showin = PlayersDices.Contains(D12_4.Show);
-                                bool isD12_5Showin = PlayersDices.Contains(D12_5.Show);
-                                bool isD12_6Showin = PlayersDices.Contains(D12_6.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
+                                bool isD12_3Showin = PlayersDice.Contains(D12_3.Show);
+                                bool isD12_4Showin = PlayersDice.Contains(D12_4.Show);
+                                bool isD12_5Showin = PlayersDice.Contains(D12_5.Show);
+                                bool isD12_6Showin = PlayersDice.Contains(D12_6.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                                 if (!isD12_3Showin)
                                 {
                                     D12_3.Roll();
-                                    PlayersDices.Add(D12_3.Show);
-                                    PlayersDicesValues.Add(D12_3.getValue());
+                                    PlayersDice.Add(D12_3.Show);
+                                    PlayersDiceValues.Add(D12_3.getValue());
                                 }
                                 if (!isD12_4Showin)
                                 {
                                     D12_4.Roll();
-                                    PlayersDices.Add(D12_4.Show);
-                                    PlayersDicesValues.Add(D12_4.getValue());
+                                    PlayersDice.Add(D12_4.Show);
+                                    PlayersDiceValues.Add(D12_4.getValue());
                                 }
                                 if (!isD12_5Showin)
                                 {
                                     D12_5.Roll();
-                                    PlayersDices.Add(D12_5.Show);
-                                    PlayersDicesValues.Add(D12_5.getValue());
+                                    PlayersDice.Add(D12_5.Show);
+                                    PlayersDiceValues.Add(D12_5.getValue());
                                 }
                                 if (!isD12_6Showin)
                                 {
                                     D12_6.Roll();
-                                    PlayersDices.Add(D12_6.Show);
-                                    PlayersDicesValues.Add(D12_6.getValue());
+                                    PlayersDice.Add(D12_6.Show);
+                                    PlayersDiceValues.Add(D12_6.getValue());
                                 }
                             }
                             else if (inputDice == "7W12" ^ inputDice == "7w12" ^ inputDice == "7D12" ^ inputDice == "7d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
-                                bool isD12_3Showin = PlayersDices.Contains(D12_3.Show);
-                                bool isD12_4Showin = PlayersDices.Contains(D12_4.Show);
-                                bool isD12_5Showin = PlayersDices.Contains(D12_5.Show);
-                                bool isD12_6Showin = PlayersDices.Contains(D12_6.Show);
-                                bool isD12_7Showin = PlayersDices.Contains(D12_7.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
+                                bool isD12_3Showin = PlayersDice.Contains(D12_3.Show);
+                                bool isD12_4Showin = PlayersDice.Contains(D12_4.Show);
+                                bool isD12_5Showin = PlayersDice.Contains(D12_5.Show);
+                                bool isD12_6Showin = PlayersDice.Contains(D12_6.Show);
+                                bool isD12_7Showin = PlayersDice.Contains(D12_7.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                                 if (!isD12_3Showin)
                                 {
                                     D12_3.Roll();
-                                    PlayersDices.Add(D12_3.Show);
-                                    PlayersDicesValues.Add(D12_3.getValue());
+                                    PlayersDice.Add(D12_3.Show);
+                                    PlayersDiceValues.Add(D12_3.getValue());
                                 }
                                 if (!isD12_4Showin)
                                 {
                                     D12_4.Roll();
-                                    PlayersDices.Add(D12_4.Show);
-                                    PlayersDicesValues.Add(D12_4.getValue());
+                                    PlayersDice.Add(D12_4.Show);
+                                    PlayersDiceValues.Add(D12_4.getValue());
                                 }
                                 if (!isD12_5Showin)
                                 {
                                     D12_5.Roll();
-                                    PlayersDices.Add(D12_5.Show);
-                                    PlayersDicesValues.Add(D12_5.getValue());
+                                    PlayersDice.Add(D12_5.Show);
+                                    PlayersDiceValues.Add(D12_5.getValue());
                                 }
                                 if (!isD12_6Showin)
                                 {
                                     D12_6.Roll();
-                                    PlayersDices.Add(D12_6.Show);
-                                    PlayersDicesValues.Add(D12_6.getValue());
+                                    PlayersDice.Add(D12_6.Show);
+                                    PlayersDiceValues.Add(D12_6.getValue());
                                 }
                                 if (!isD12_7Showin)
                                 {
                                     D12_7.Roll();
-                                    PlayersDices.Add(D12_7.Show);
-                                    PlayersDicesValues.Add(D12_7.getValue());
+                                    PlayersDice.Add(D12_7.Show);
+                                    PlayersDiceValues.Add(D12_7.getValue());
                                 }
                             }
                             else if (inputDice == "8W12" ^ inputDice == "8w12" ^ inputDice == "8D12" ^ inputDice == "8d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
-                                bool isD12_3Showin = PlayersDices.Contains(D12_3.Show);
-                                bool isD12_4Showin = PlayersDices.Contains(D12_4.Show);
-                                bool isD12_5Showin = PlayersDices.Contains(D12_5.Show);
-                                bool isD12_6Showin = PlayersDices.Contains(D12_6.Show);
-                                bool isD12_7Showin = PlayersDices.Contains(D12_7.Show);
-                                bool isD12_8Showin = PlayersDices.Contains(D12_8.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
+                                bool isD12_3Showin = PlayersDice.Contains(D12_3.Show);
+                                bool isD12_4Showin = PlayersDice.Contains(D12_4.Show);
+                                bool isD12_5Showin = PlayersDice.Contains(D12_5.Show);
+                                bool isD12_6Showin = PlayersDice.Contains(D12_6.Show);
+                                bool isD12_7Showin = PlayersDice.Contains(D12_7.Show);
+                                bool isD12_8Showin = PlayersDice.Contains(D12_8.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                                 if (!isD12_3Showin)
                                 {
                                     D12_3.Roll();
-                                    PlayersDices.Add(D12_3.Show);
-                                    PlayersDicesValues.Add(D12_3.getValue());
+                                    PlayersDice.Add(D12_3.Show);
+                                    PlayersDiceValues.Add(D12_3.getValue());
                                 }
                                 if (!isD12_4Showin)
                                 {
                                     D12_4.Roll();
-                                    PlayersDices.Add(D12_4.Show);
-                                    PlayersDicesValues.Add(D12_4.getValue());
+                                    PlayersDice.Add(D12_4.Show);
+                                    PlayersDiceValues.Add(D12_4.getValue());
                                 }
                                 if (!isD12_5Showin)
                                 {
                                     D12_5.Roll();
-                                    PlayersDices.Add(D12_5.Show);
-                                    PlayersDicesValues.Add(D12_5.getValue());
+                                    PlayersDice.Add(D12_5.Show);
+                                    PlayersDiceValues.Add(D12_5.getValue());
                                 }
                                 if (!isD12_6Showin)
                                 {
                                     D12_6.Roll();
-                                    PlayersDices.Add(D12_6.Show);
-                                    PlayersDicesValues.Add(D12_6.getValue());
+                                    PlayersDice.Add(D12_6.Show);
+                                    PlayersDiceValues.Add(D12_6.getValue());
                                 }
                                 if (!isD12_7Showin)
                                 {
                                     D12_7.Roll();
-                                    PlayersDices.Add(D12_7.Show);
-                                    PlayersDicesValues.Add(D12_7.getValue());
+                                    PlayersDice.Add(D12_7.Show);
+                                    PlayersDiceValues.Add(D12_7.getValue());
                                 }
                                 if (!isD12_8Showin)
                                 {
                                     D12_8.Roll();
-                                    PlayersDices.Add(D12_8.Show);
-                                    PlayersDicesValues.Add(D12_8.getValue());
+                                    PlayersDice.Add(D12_8.Show);
+                                    PlayersDiceValues.Add(D12_8.getValue());
                                 }
                             }
                             else if (inputDice == "9W12" ^ inputDice == "9w12" ^ inputDice == "9D12" ^ inputDice == "9d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
-                                bool isD12_3Showin = PlayersDices.Contains(D12_3.Show);
-                                bool isD12_4Showin = PlayersDices.Contains(D12_4.Show);
-                                bool isD12_5Showin = PlayersDices.Contains(D12_5.Show);
-                                bool isD12_6Showin = PlayersDices.Contains(D12_6.Show);
-                                bool isD12_7Showin = PlayersDices.Contains(D12_7.Show);
-                                bool isD12_8Showin = PlayersDices.Contains(D12_8.Show);
-                                bool isD12_9Showin = PlayersDices.Contains(D12_9.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
+                                bool isD12_3Showin = PlayersDice.Contains(D12_3.Show);
+                                bool isD12_4Showin = PlayersDice.Contains(D12_4.Show);
+                                bool isD12_5Showin = PlayersDice.Contains(D12_5.Show);
+                                bool isD12_6Showin = PlayersDice.Contains(D12_6.Show);
+                                bool isD12_7Showin = PlayersDice.Contains(D12_7.Show);
+                                bool isD12_8Showin = PlayersDice.Contains(D12_8.Show);
+                                bool isD12_9Showin = PlayersDice.Contains(D12_9.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                                 if (!isD12_3Showin)
                                 {
                                     D12_3.Roll();
-                                    PlayersDices.Add(D12_3.Show);
-                                    PlayersDicesValues.Add(D12_3.getValue());
+                                    PlayersDice.Add(D12_3.Show);
+                                    PlayersDiceValues.Add(D12_3.getValue());
                                 }
                                 if (!isD12_4Showin)
                                 {
                                     D12_4.Roll();
-                                    PlayersDices.Add(D12_4.Show);
-                                    PlayersDicesValues.Add(D12_4.getValue());
+                                    PlayersDice.Add(D12_4.Show);
+                                    PlayersDiceValues.Add(D12_4.getValue());
                                 }
                                 if (!isD12_5Showin)
                                 {
                                     D12_5.Roll();
-                                    PlayersDices.Add(D12_5.Show);
-                                    PlayersDicesValues.Add(D12_5.getValue());
+                                    PlayersDice.Add(D12_5.Show);
+                                    PlayersDiceValues.Add(D12_5.getValue());
                                 }
                                 if (!isD12_6Showin)
                                 {
                                     D12_6.Roll();
-                                    PlayersDices.Add(D12_6.Show);
-                                    PlayersDicesValues.Add(D12_6.getValue());
+                                    PlayersDice.Add(D12_6.Show);
+                                    PlayersDiceValues.Add(D12_6.getValue());
                                 }
                                 if (!isD12_7Showin)
                                 {
                                     D12_7.Roll();
-                                    PlayersDices.Add(D12_7.Show);
-                                    PlayersDicesValues.Add(D12_7.getValue());
+                                    PlayersDice.Add(D12_7.Show);
+                                    PlayersDiceValues.Add(D12_7.getValue());
                                 }
                                 if (!isD12_8Showin)
                                 {
                                     D12_8.Roll();
-                                    PlayersDices.Add(D12_8.Show);
-                                    PlayersDicesValues.Add(D12_8.getValue());
+                                    PlayersDice.Add(D12_8.Show);
+                                    PlayersDiceValues.Add(D12_8.getValue());
                                 }
                                 if (!isD12_9Showin)
                                 {
                                     D12_9.Roll();
-                                    PlayersDices.Add(D12_9.Show);
-                                    PlayersDicesValues.Add(D12_9.getValue());
+                                    PlayersDice.Add(D12_9.Show);
+                                    PlayersDiceValues.Add(D12_9.getValue());
                                 }
                             }
                             else if (inputDice == "10W12" ^ inputDice == "10w12" ^ inputDice == "10D12" ^ inputDice == "10d12")
                             {
-                                bool isD12Showin = PlayersDices.Contains(D12.Show);
-                                bool isD12_2Showin = PlayersDices.Contains(D12_2.Show);
-                                bool isD12_3Showin = PlayersDices.Contains(D12_3.Show);
-                                bool isD12_4Showin = PlayersDices.Contains(D12_4.Show);
-                                bool isD12_5Showin = PlayersDices.Contains(D12_5.Show);
-                                bool isD12_6Showin = PlayersDices.Contains(D12_6.Show);
-                                bool isD12_7Showin = PlayersDices.Contains(D12_7.Show);
-                                bool isD12_8Showin = PlayersDices.Contains(D12_8.Show);
-                                bool isD12_9Showin = PlayersDices.Contains(D12_9.Show);
-                                bool isD12_10Showin = PlayersDices.Contains(D12_10.Show);
+                                bool isD12Showin = PlayersDice.Contains(D12.Show);
+                                bool isD12_2Showin = PlayersDice.Contains(D12_2.Show);
+                                bool isD12_3Showin = PlayersDice.Contains(D12_3.Show);
+                                bool isD12_4Showin = PlayersDice.Contains(D12_4.Show);
+                                bool isD12_5Showin = PlayersDice.Contains(D12_5.Show);
+                                bool isD12_6Showin = PlayersDice.Contains(D12_6.Show);
+                                bool isD12_7Showin = PlayersDice.Contains(D12_7.Show);
+                                bool isD12_8Showin = PlayersDice.Contains(D12_8.Show);
+                                bool isD12_9Showin = PlayersDice.Contains(D12_9.Show);
+                                bool isD12_10Showin = PlayersDice.Contains(D12_10.Show);
                                 if (!isD12Showin)
                                 {
                                     D12.Roll();
-                                    PlayersDices.Add(D12.Show);
-                                    PlayersDicesValues.Add(D12.getValue());
+                                    PlayersDice.Add(D12.Show);
+                                    PlayersDiceValues.Add(D12.getValue());
                                 }
                                 if (!isD12_2Showin)
                                 {
                                     D12_2.Roll();
-                                    PlayersDices.Add(D12_2.Show);
-                                    PlayersDicesValues.Add(D12_2.getValue());
+                                    PlayersDice.Add(D12_2.Show);
+                                    PlayersDiceValues.Add(D12_2.getValue());
                                 }
                                 if (!isD12_3Showin)
                                 {
                                     D12_3.Roll();
-                                    PlayersDices.Add(D12_3.Show);
-                                    PlayersDicesValues.Add(D12_3.getValue());
+                                    PlayersDice.Add(D12_3.Show);
+                                    PlayersDiceValues.Add(D12_3.getValue());
                                 }
                                 if (!isD12_4Showin)
                                 {
                                     D12_4.Roll();
-                                    PlayersDices.Add(D12_4.Show);
-                                    PlayersDicesValues.Add(D12_4.getValue());
+                                    PlayersDice.Add(D12_4.Show);
+                                    PlayersDiceValues.Add(D12_4.getValue());
                                 }
                                 if (!isD12_5Showin)
                                 {
                                     D12_5.Roll();
-                                    PlayersDices.Add(D12_5.Show);
-                                    PlayersDicesValues.Add(D12_5.getValue());
+                                    PlayersDice.Add(D12_5.Show);
+                                    PlayersDiceValues.Add(D12_5.getValue());
                                 }
                                 if (!isD12_6Showin)
                                 {
                                     D12_6.Roll();
-                                    PlayersDices.Add(D12_6.Show);
-                                    PlayersDicesValues.Add(D12_6.getValue());
+                                    PlayersDice.Add(D12_6.Show);
+                                    PlayersDiceValues.Add(D12_6.getValue());
                                 }
                                 if (!isD12_7Showin)
                                 {
                                     D12_7.Roll();
-                                    PlayersDices.Add(D12_7.Show);
-                                    PlayersDicesValues.Add(D12_7.getValue());
+                                    PlayersDice.Add(D12_7.Show);
+                                    PlayersDiceValues.Add(D12_7.getValue());
                                 }
                                 if (!isD12_8Showin)
                                 {
                                     D12_8.Roll();
-                                    PlayersDices.Add(D12_8.Show);
-                                    PlayersDicesValues.Add(D12_8.getValue());
+                                    PlayersDice.Add(D12_8.Show);
+                                    PlayersDiceValues.Add(D12_8.getValue());
                                 }
                                 if (!isD12_9Showin)
                                 {
                                     D12_9.Roll();
-                                    PlayersDices.Add(D12_9.Show);
-                                    PlayersDicesValues.Add(D12_9.getValue());
+                                    PlayersDice.Add(D12_9.Show);
+                                    PlayersDiceValues.Add(D12_9.getValue());
                                 }
                                 if (!isD12_10Showin)
                                 {
                                     D12_10.Roll();
-                                    PlayersDices.Add(D12_10.Show);
-                                    PlayersDicesValues.Add(D12_10.getValue());
+                                    PlayersDice.Add(D12_10.Show);
+                                    PlayersDiceValues.Add(D12_10.getValue());
                                 }
                             }
                             #endregion
                             #region D20 If States
                             else if (inputDice == "W20" ^ inputDice == "1W20" ^ inputDice == "w20" ^ inputDice == "1w20" ^ inputDice == "D20" ^ inputDice == "1D20" ^ inputDice == "d20" ^ inputDice == "1d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                             }
                             else if (inputDice == "2W20" ^ inputDice == "2w20" ^ inputDice == "2D20" ^ inputDice == "2d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                             }
                             else if (inputDice == "3W20" ^ inputDice == "3w20" ^ inputDice == "3D20" ^ inputDice == "3d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
-                                bool isD20_3Showin = PlayersDices.Contains(D20_3.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
+                                bool isD20_3Showin = PlayersDice.Contains(D20_3.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                                 if (!isD20_3Showin)
                                 {
                                     D20_3.Roll();
-                                    PlayersDices.Add(D20_3.Show);
-                                    PlayersDicesValues.Add(D20_3.getValue());
+                                    PlayersDice.Add(D20_3.Show);
+                                    PlayersDiceValues.Add(D20_3.getValue());
                                 }
                             }
                             else if (inputDice == "4W20" ^ inputDice == "4w20" ^ inputDice == "4D20" ^ inputDice == "4d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
-                                bool isD20_3Showin = PlayersDices.Contains(D20_3.Show);
-                                bool isD20_4Showin = PlayersDices.Contains(D20_4.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
+                                bool isD20_3Showin = PlayersDice.Contains(D20_3.Show);
+                                bool isD20_4Showin = PlayersDice.Contains(D20_4.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                                 if (!isD20_3Showin)
                                 {
                                     D20_3.Roll();
-                                    PlayersDices.Add(D20_3.Show);
-                                    PlayersDicesValues.Add(D20_3.getValue());
+                                    PlayersDice.Add(D20_3.Show);
+                                    PlayersDiceValues.Add(D20_3.getValue());
                                 }
                                 if (!isD20_4Showin)
                                 {
                                     D20_4.Roll();
-                                    PlayersDices.Add(D20_4.Show);
-                                    PlayersDicesValues.Add(D20_4.getValue());
+                                    PlayersDice.Add(D20_4.Show);
+                                    PlayersDiceValues.Add(D20_4.getValue());
                                 }
                             }
                             else if (inputDice == "5W20" ^ inputDice == "5w20" ^ inputDice == "5D20" ^ inputDice == "5d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
-                                bool isD20_3Showin = PlayersDices.Contains(D20_3.Show);
-                                bool isD20_4Showin = PlayersDices.Contains(D20_4.Show);
-                                bool isD20_5Showin = PlayersDices.Contains(D20_5.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
+                                bool isD20_3Showin = PlayersDice.Contains(D20_3.Show);
+                                bool isD20_4Showin = PlayersDice.Contains(D20_4.Show);
+                                bool isD20_5Showin = PlayersDice.Contains(D20_5.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                                 if (!isD20_3Showin)
                                 {
                                     D20_3.Roll();
-                                    PlayersDices.Add(D20_3.Show);
-                                    PlayersDicesValues.Add(D20_3.getValue());
+                                    PlayersDice.Add(D20_3.Show);
+                                    PlayersDiceValues.Add(D20_3.getValue());
                                 }
                                 if (!isD20_4Showin)
                                 {
                                     D20_4.Roll();
-                                    PlayersDices.Add(D20_4.Show);
-                                    PlayersDicesValues.Add(D20_4.getValue());
+                                    PlayersDice.Add(D20_4.Show);
+                                    PlayersDiceValues.Add(D20_4.getValue());
                                 }
                                 if (!isD20_5Showin)
                                 {
                                     D20_5.Roll();
-                                    PlayersDices.Add(D20_5.Show);
-                                    PlayersDicesValues.Add(D20_5.getValue());
+                                    PlayersDice.Add(D20_5.Show);
+                                    PlayersDiceValues.Add(D20_5.getValue());
                                 }
                             }
                             else if (inputDice == "6W20" ^ inputDice == "6w20" ^ inputDice == "6D20" ^ inputDice == "6d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
-                                bool isD20_3Showin = PlayersDices.Contains(D20_3.Show);
-                                bool isD20_4Showin = PlayersDices.Contains(D20_4.Show);
-                                bool isD20_5Showin = PlayersDices.Contains(D20_5.Show);
-                                bool isD20_6Showin = PlayersDices.Contains(D20_6.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
+                                bool isD20_3Showin = PlayersDice.Contains(D20_3.Show);
+                                bool isD20_4Showin = PlayersDice.Contains(D20_4.Show);
+                                bool isD20_5Showin = PlayersDice.Contains(D20_5.Show);
+                                bool isD20_6Showin = PlayersDice.Contains(D20_6.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                                 if (!isD20_3Showin)
                                 {
                                     D20_3.Roll();
-                                    PlayersDices.Add(D20_3.Show);
-                                    PlayersDicesValues.Add(D20_3.getValue());
+                                    PlayersDice.Add(D20_3.Show);
+                                    PlayersDiceValues.Add(D20_3.getValue());
                                 }
                                 if (!isD20_4Showin)
                                 {
                                     D20_4.Roll();
-                                    PlayersDices.Add(D20_4.Show);
-                                    PlayersDicesValues.Add(D20_4.getValue());
+                                    PlayersDice.Add(D20_4.Show);
+                                    PlayersDiceValues.Add(D20_4.getValue());
                                 }
                                 if (!isD20_5Showin)
                                 {
                                     D20_5.Roll();
-                                    PlayersDices.Add(D20_5.Show);
-                                    PlayersDicesValues.Add(D20_5.getValue());
+                                    PlayersDice.Add(D20_5.Show);
+                                    PlayersDiceValues.Add(D20_5.getValue());
                                 }
                                 if (!isD20_6Showin)
                                 {
                                     D20_6.Roll();
-                                    PlayersDices.Add(D20_6.Show);
-                                    PlayersDicesValues.Add(D20_6.getValue());
+                                    PlayersDice.Add(D20_6.Show);
+                                    PlayersDiceValues.Add(D20_6.getValue());
                                 }
                             }
                             else if (inputDice == "7W20" ^ inputDice == "7w20" ^ inputDice == "7D20" ^ inputDice == "7d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
-                                bool isD20_3Showin = PlayersDices.Contains(D20_3.Show);
-                                bool isD20_4Showin = PlayersDices.Contains(D20_4.Show);
-                                bool isD20_5Showin = PlayersDices.Contains(D20_5.Show);
-                                bool isD20_6Showin = PlayersDices.Contains(D20_6.Show);
-                                bool isD20_7Showin = PlayersDices.Contains(D20_7.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
+                                bool isD20_3Showin = PlayersDice.Contains(D20_3.Show);
+                                bool isD20_4Showin = PlayersDice.Contains(D20_4.Show);
+                                bool isD20_5Showin = PlayersDice.Contains(D20_5.Show);
+                                bool isD20_6Showin = PlayersDice.Contains(D20_6.Show);
+                                bool isD20_7Showin = PlayersDice.Contains(D20_7.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                                 if (!isD20_3Showin)
                                 {
                                     D20_3.Roll();
-                                    PlayersDices.Add(D20_3.Show);
-                                    PlayersDicesValues.Add(D20_3.getValue());
+                                    PlayersDice.Add(D20_3.Show);
+                                    PlayersDiceValues.Add(D20_3.getValue());
                                 }
                                 if (!isD20_4Showin)
                                 {
                                     D20_4.Roll();
-                                    PlayersDices.Add(D20_4.Show);
-                                    PlayersDicesValues.Add(D20_4.getValue());
+                                    PlayersDice.Add(D20_4.Show);
+                                    PlayersDiceValues.Add(D20_4.getValue());
                                 }
                                 if (!isD20_5Showin)
                                 {
                                     D20_5.Roll();
-                                    PlayersDices.Add(D20_5.Show);
-                                    PlayersDicesValues.Add(D20_5.getValue());
+                                    PlayersDice.Add(D20_5.Show);
+                                    PlayersDiceValues.Add(D20_5.getValue());
                                 }
                                 if (!isD20_6Showin)
                                 {
                                     D20_6.Roll();
-                                    PlayersDices.Add(D20_6.Show);
-                                    PlayersDicesValues.Add(D20_6.getValue());
+                                    PlayersDice.Add(D20_6.Show);
+                                    PlayersDiceValues.Add(D20_6.getValue());
                                 }
                                 if (!isD20_7Showin)
                                 {
                                     D20_7.Roll();
-                                    PlayersDices.Add(D20_7.Show);
-                                    PlayersDicesValues.Add(D20_7.getValue());
+                                    PlayersDice.Add(D20_7.Show);
+                                    PlayersDiceValues.Add(D20_7.getValue());
                                 }
                             }
                             else if (inputDice == "8W20" ^ inputDice == "8w20" ^ inputDice == "8D20" ^ inputDice == "8d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
-                                bool isD20_3Showin = PlayersDices.Contains(D20_3.Show);
-                                bool isD20_4Showin = PlayersDices.Contains(D20_4.Show);
-                                bool isD20_5Showin = PlayersDices.Contains(D20_5.Show);
-                                bool isD20_6Showin = PlayersDices.Contains(D20_6.Show);
-                                bool isD20_7Showin = PlayersDices.Contains(D20_7.Show);
-                                bool isD20_8Showin = PlayersDices.Contains(D20_8.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
+                                bool isD20_3Showin = PlayersDice.Contains(D20_3.Show);
+                                bool isD20_4Showin = PlayersDice.Contains(D20_4.Show);
+                                bool isD20_5Showin = PlayersDice.Contains(D20_5.Show);
+                                bool isD20_6Showin = PlayersDice.Contains(D20_6.Show);
+                                bool isD20_7Showin = PlayersDice.Contains(D20_7.Show);
+                                bool isD20_8Showin = PlayersDice.Contains(D20_8.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                                 if (!isD20_3Showin)
                                 {
                                     D20_3.Roll();
-                                    PlayersDices.Add(D20_3.Show);
-                                    PlayersDicesValues.Add(D20_3.getValue());
+                                    PlayersDice.Add(D20_3.Show);
+                                    PlayersDiceValues.Add(D20_3.getValue());
                                 }
                                 if (!isD20_4Showin)
                                 {
                                     D20_4.Roll();
-                                    PlayersDices.Add(D20_4.Show);
-                                    PlayersDicesValues.Add(D20_4.getValue());
+                                    PlayersDice.Add(D20_4.Show);
+                                    PlayersDiceValues.Add(D20_4.getValue());
                                 }
                                 if (!isD20_5Showin)
                                 {
                                     D20_5.Roll();
-                                    PlayersDices.Add(D20_5.Show);
-                                    PlayersDicesValues.Add(D20_5.getValue());
+                                    PlayersDice.Add(D20_5.Show);
+                                    PlayersDiceValues.Add(D20_5.getValue());
                                 }
                                 if (!isD20_6Showin)
                                 {
                                     D20_6.Roll();
-                                    PlayersDices.Add(D20_6.Show);
-                                    PlayersDicesValues.Add(D20_6.getValue());
+                                    PlayersDice.Add(D20_6.Show);
+                                    PlayersDiceValues.Add(D20_6.getValue());
                                 }
                                 if (!isD20_7Showin)
                                 {
                                     D20_7.Roll();
-                                    PlayersDices.Add(D20_7.Show);
-                                    PlayersDicesValues.Add(D20_7.getValue());
+                                    PlayersDice.Add(D20_7.Show);
+                                    PlayersDiceValues.Add(D20_7.getValue());
                                 }
                                 if (!isD20_8Showin)
                                 {
                                     D20_8.Roll();
-                                    PlayersDices.Add(D20_8.Show);
-                                    PlayersDicesValues.Add(D20_8.getValue());
+                                    PlayersDice.Add(D20_8.Show);
+                                    PlayersDiceValues.Add(D20_8.getValue());
                                 }
                             }
                             else if (inputDice == "9W20" ^ inputDice == "9w20" ^ inputDice == "9D20" ^ inputDice == "9d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
-                                bool isD20_3Showin = PlayersDices.Contains(D20_3.Show);
-                                bool isD20_4Showin = PlayersDices.Contains(D20_4.Show);
-                                bool isD20_5Showin = PlayersDices.Contains(D20_5.Show);
-                                bool isD20_6Showin = PlayersDices.Contains(D20_6.Show);
-                                bool isD20_7Showin = PlayersDices.Contains(D20_7.Show);
-                                bool isD20_8Showin = PlayersDices.Contains(D20_8.Show);
-                                bool isD20_9Showin = PlayersDices.Contains(D20_9.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
+                                bool isD20_3Showin = PlayersDice.Contains(D20_3.Show);
+                                bool isD20_4Showin = PlayersDice.Contains(D20_4.Show);
+                                bool isD20_5Showin = PlayersDice.Contains(D20_5.Show);
+                                bool isD20_6Showin = PlayersDice.Contains(D20_6.Show);
+                                bool isD20_7Showin = PlayersDice.Contains(D20_7.Show);
+                                bool isD20_8Showin = PlayersDice.Contains(D20_8.Show);
+                                bool isD20_9Showin = PlayersDice.Contains(D20_9.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                                 if (!isD20_3Showin)
                                 {
                                     D20_3.Roll();
-                                    PlayersDices.Add(D20_3.Show);
-                                    PlayersDicesValues.Add(D20_3.getValue());
+                                    PlayersDice.Add(D20_3.Show);
+                                    PlayersDiceValues.Add(D20_3.getValue());
                                 }
                                 if (!isD20_4Showin)
                                 {
                                     D20_4.Roll();
-                                    PlayersDices.Add(D20_4.Show);
-                                    PlayersDicesValues.Add(D20_4.getValue());
+                                    PlayersDice.Add(D20_4.Show);
+                                    PlayersDiceValues.Add(D20_4.getValue());
                                 }
                                 if (!isD20_5Showin)
                                 {
                                     D20_5.Roll();
-                                    PlayersDices.Add(D20_5.Show);
-                                    PlayersDicesValues.Add(D20_5.getValue());
+                                    PlayersDice.Add(D20_5.Show);
+                                    PlayersDiceValues.Add(D20_5.getValue());
                                 }
                                 if (!isD20_6Showin)
                                 {
                                     D20_6.Roll();
-                                    PlayersDices.Add(D20_6.Show);
-                                    PlayersDicesValues.Add(D20_6.getValue());
+                                    PlayersDice.Add(D20_6.Show);
+                                    PlayersDiceValues.Add(D20_6.getValue());
                                 }
                                 if (!isD20_7Showin)
                                 {
                                     D20_7.Roll();
-                                    PlayersDices.Add(D20_7.Show);
-                                    PlayersDicesValues.Add(D20_7.getValue());
+                                    PlayersDice.Add(D20_7.Show);
+                                    PlayersDiceValues.Add(D20_7.getValue());
                                 }
                                 if (!isD20_8Showin)
                                 {
                                     D20_8.Roll();
-                                    PlayersDices.Add(D20_8.Show);
-                                    PlayersDicesValues.Add(D20_8.getValue());
+                                    PlayersDice.Add(D20_8.Show);
+                                    PlayersDiceValues.Add(D20_8.getValue());
                                 }
                                 if (!isD20_9Showin)
                                 {
                                     D20_9.Roll();
-                                    PlayersDices.Add(D20_9.Show);
-                                    PlayersDicesValues.Add(D20_9.getValue());
+                                    PlayersDice.Add(D20_9.Show);
+                                    PlayersDiceValues.Add(D20_9.getValue());
                                 }
                             }
                             else if (inputDice == "10W20" ^ inputDice == "10w20" ^ inputDice == "10D20" ^ inputDice == "10d20")
                             {
-                                bool isD20Showin = PlayersDices.Contains(D20.Show);
-                                bool isD20_2Showin = PlayersDices.Contains(D20_2.Show);
-                                bool isD20_3Showin = PlayersDices.Contains(D20_3.Show);
-                                bool isD20_4Showin = PlayersDices.Contains(D20_4.Show);
-                                bool isD20_5Showin = PlayersDices.Contains(D20_5.Show);
-                                bool isD20_6Showin = PlayersDices.Contains(D20_6.Show);
-                                bool isD20_7Showin = PlayersDices.Contains(D20_7.Show);
-                                bool isD20_8Showin = PlayersDices.Contains(D20_8.Show);
-                                bool isD20_9Showin = PlayersDices.Contains(D20_9.Show);
-                                bool isD20_10Showin = PlayersDices.Contains(D20_10.Show);
+                                bool isD20Showin = PlayersDice.Contains(D20.Show);
+                                bool isD20_2Showin = PlayersDice.Contains(D20_2.Show);
+                                bool isD20_3Showin = PlayersDice.Contains(D20_3.Show);
+                                bool isD20_4Showin = PlayersDice.Contains(D20_4.Show);
+                                bool isD20_5Showin = PlayersDice.Contains(D20_5.Show);
+                                bool isD20_6Showin = PlayersDice.Contains(D20_6.Show);
+                                bool isD20_7Showin = PlayersDice.Contains(D20_7.Show);
+                                bool isD20_8Showin = PlayersDice.Contains(D20_8.Show);
+                                bool isD20_9Showin = PlayersDice.Contains(D20_9.Show);
+                                bool isD20_10Showin = PlayersDice.Contains(D20_10.Show);
                                 if (!isD20Showin)
                                 {
                                     D20.Roll();
-                                    PlayersDices.Add(D20.Show);
-                                    PlayersDicesValues.Add(D20.getValue());
+                                    PlayersDice.Add(D20.Show);
+                                    PlayersDiceValues.Add(D20.getValue());
                                 }
                                 if (!isD20_2Showin)
                                 {
                                     D20_2.Roll();
-                                    PlayersDices.Add(D20_2.Show);
-                                    PlayersDicesValues.Add(D20_2.getValue());
+                                    PlayersDice.Add(D20_2.Show);
+                                    PlayersDiceValues.Add(D20_2.getValue());
                                 }
                                 if (!isD20_3Showin)
                                 {
                                     D20_3.Roll();
-                                    PlayersDices.Add(D20_3.Show);
-                                    PlayersDicesValues.Add(D20_3.getValue());
+                                    PlayersDice.Add(D20_3.Show);
+                                    PlayersDiceValues.Add(D20_3.getValue());
                                 }
                                 if (!isD20_4Showin)
                                 {
                                     D20_4.Roll();
-                                    PlayersDices.Add(D20_4.Show);
-                                    PlayersDicesValues.Add(D20_4.getValue());
+                                    PlayersDice.Add(D20_4.Show);
+                                    PlayersDiceValues.Add(D20_4.getValue());
                                 }
                                 if (!isD20_5Showin)
                                 {
                                     D20_5.Roll();
-                                    PlayersDices.Add(D20_5.Show);
-                                    PlayersDicesValues.Add(D20_5.getValue());
+                                    PlayersDice.Add(D20_5.Show);
+                                    PlayersDiceValues.Add(D20_5.getValue());
                                 }
                                 if (!isD20_6Showin)
                                 {
                                     D20_6.Roll();
-                                    PlayersDices.Add(D20_6.Show);
-                                    PlayersDicesValues.Add(D20_6.getValue());
+                                    PlayersDice.Add(D20_6.Show);
+                                    PlayersDiceValues.Add(D20_6.getValue());
                                 }
                                 if (!isD20_7Showin)
                                 {
                                     D20_7.Roll();
-                                    PlayersDices.Add(D20_7.Show);
-                                    PlayersDicesValues.Add(D20_7.getValue());
+                                    PlayersDice.Add(D20_7.Show);
+                                    PlayersDiceValues.Add(D20_7.getValue());
                                 }
                                 if (!isD20_8Showin)
                                 {
                                     D20_8.Roll();
-                                    PlayersDices.Add(D20_8.Show);
-                                    PlayersDicesValues.Add(D20_8.getValue());
+                                    PlayersDice.Add(D20_8.Show);
+                                    PlayersDiceValues.Add(D20_8.getValue());
                                 }
                                 if (!isD20_9Showin)
                                 {
                                     D20_9.Roll();
-                                    PlayersDices.Add(D20_9.Show);
-                                    PlayersDicesValues.Add(D20_9.getValue());
+                                    PlayersDice.Add(D20_9.Show);
+                                    PlayersDiceValues.Add(D20_9.getValue());
                                 }
                                 if (!isD20_10Showin)
                                 {
                                     D20_10.Roll();
-                                    PlayersDices.Add(D20_10.Show);
-                                    PlayersDicesValues.Add(D20_10.getValue());
+                                    PlayersDice.Add(D20_10.Show);
+                                    PlayersDiceValues.Add(D20_10.getValue());
                                 }
                             }
                             #endregion
                             #region D100 If States
                             else if (inputDice == "W100" ^ inputDice == "1W100" ^ inputDice == "w100" ^ inputDice == "1w100" ^ inputDice == "D100" ^ inputDice == "1D100" ^ inputDice == "d100" ^ inputDice == "1d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                             }
                             else if (inputDice == "2W100" ^ inputDice == "2w100" ^ inputDice == "2D100" ^ inputDice == "2d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                             }
                             else if (inputDice == "3W100" ^ inputDice == "3w100" ^ inputDice == "3D100" ^ inputDice == "3d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
-                                bool isD100_3Showin = PlayersDices.Contains(D100_3.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
+                                bool isD100_3Showin = PlayersDice.Contains(D100_3.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                                 if (!isD100_3Showin)
                                 {
                                     D100_3.Roll();
-                                    PlayersDices.Add(D100_3.Show);
-                                    PlayersDicesValues.Add(D100_3.getValue());
+                                    PlayersDice.Add(D100_3.Show);
+                                    PlayersDiceValues.Add(D100_3.getValue());
                                 }
                             }
                             else if (inputDice == "4W100" ^ inputDice == "4w100" ^ inputDice == "4D100" ^ inputDice == "4d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
-                                bool isD100_3Showin = PlayersDices.Contains(D100_3.Show);
-                                bool isD100_4Showin = PlayersDices.Contains(D100_4.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
+                                bool isD100_3Showin = PlayersDice.Contains(D100_3.Show);
+                                bool isD100_4Showin = PlayersDice.Contains(D100_4.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                                 if (!isD100_3Showin)
                                 {
                                     D100_3.Roll();
-                                    PlayersDices.Add(D100_3.Show);
-                                    PlayersDicesValues.Add(D100_3.getValue());
+                                    PlayersDice.Add(D100_3.Show);
+                                    PlayersDiceValues.Add(D100_3.getValue());
                                 }
                                 if (!isD100_4Showin)
                                 {
                                     D100_4.Roll();
-                                    PlayersDices.Add(D100_4.Show);
-                                    PlayersDicesValues.Add(D100_4.getValue());
+                                    PlayersDice.Add(D100_4.Show);
+                                    PlayersDiceValues.Add(D100_4.getValue());
                                 }
                             }
                             else if (inputDice == "5W100" ^ inputDice == "5w100" ^ inputDice == "5D100" ^ inputDice == "5d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
-                                bool isD100_3Showin = PlayersDices.Contains(D100_3.Show);
-                                bool isD100_4Showin = PlayersDices.Contains(D100_4.Show);
-                                bool isD100_5Showin = PlayersDices.Contains(D100_5.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
+                                bool isD100_3Showin = PlayersDice.Contains(D100_3.Show);
+                                bool isD100_4Showin = PlayersDice.Contains(D100_4.Show);
+                                bool isD100_5Showin = PlayersDice.Contains(D100_5.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                                 if (!isD100_3Showin)
                                 {
                                     D100_3.Roll();
-                                    PlayersDices.Add(D100_3.Show);
-                                    PlayersDicesValues.Add(D100_3.getValue());
+                                    PlayersDice.Add(D100_3.Show);
+                                    PlayersDiceValues.Add(D100_3.getValue());
                                 }
                                 if (!isD100_4Showin)
                                 {
                                     D100_4.Roll();
-                                    PlayersDices.Add(D100_4.Show);
-                                    PlayersDicesValues.Add(D100_4.getValue());
+                                    PlayersDice.Add(D100_4.Show);
+                                    PlayersDiceValues.Add(D100_4.getValue());
                                 }
                                 if (!isD100_5Showin)
                                 {
                                     D100_5.Roll();
-                                    PlayersDices.Add(D100_5.Show);
-                                    PlayersDicesValues.Add(D100_5.getValue());
+                                    PlayersDice.Add(D100_5.Show);
+                                    PlayersDiceValues.Add(D100_5.getValue());
                                 }
                             }
                             else if (inputDice == "6W100" ^ inputDice == "6w100" ^ inputDice == "6D100" ^ inputDice == "6d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
-                                bool isD100_3Showin = PlayersDices.Contains(D100_3.Show);
-                                bool isD100_4Showin = PlayersDices.Contains(D100_4.Show);
-                                bool isD100_5Showin = PlayersDices.Contains(D100_5.Show);
-                                bool isD100_6Showin = PlayersDices.Contains(D100_6.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
+                                bool isD100_3Showin = PlayersDice.Contains(D100_3.Show);
+                                bool isD100_4Showin = PlayersDice.Contains(D100_4.Show);
+                                bool isD100_5Showin = PlayersDice.Contains(D100_5.Show);
+                                bool isD100_6Showin = PlayersDice.Contains(D100_6.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                                 if (!isD100_3Showin)
                                 {
                                     D100_3.Roll();
-                                    PlayersDices.Add(D100_3.Show);
-                                    PlayersDicesValues.Add(D100_3.getValue());
+                                    PlayersDice.Add(D100_3.Show);
+                                    PlayersDiceValues.Add(D100_3.getValue());
                                 }
                                 if (!isD100_4Showin)
                                 {
                                     D100_4.Roll();
-                                    PlayersDices.Add(D100_4.Show);
-                                    PlayersDicesValues.Add(D100_4.getValue());
+                                    PlayersDice.Add(D100_4.Show);
+                                    PlayersDiceValues.Add(D100_4.getValue());
                                 }
                                 if (!isD100_5Showin)
                                 {
                                     D100_5.Roll();
-                                    PlayersDices.Add(D100_5.Show);
-                                    PlayersDicesValues.Add(D100_5.getValue());
+                                    PlayersDice.Add(D100_5.Show);
+                                    PlayersDiceValues.Add(D100_5.getValue());
                                 }
                                 if (!isD100_6Showin)
                                 {
                                     D100_6.Roll();
-                                    PlayersDices.Add(D100_6.Show);
-                                    PlayersDicesValues.Add(D100_6.getValue());
+                                    PlayersDice.Add(D100_6.Show);
+                                    PlayersDiceValues.Add(D100_6.getValue());
                                 }
                             }
                             else if (inputDice == "7W100" ^ inputDice == "7w100" ^ inputDice == "7D100" ^ inputDice == "7d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
-                                bool isD100_3Showin = PlayersDices.Contains(D100_3.Show);
-                                bool isD100_4Showin = PlayersDices.Contains(D100_4.Show);
-                                bool isD100_5Showin = PlayersDices.Contains(D100_5.Show);
-                                bool isD100_6Showin = PlayersDices.Contains(D100_6.Show);
-                                bool isD100_7Showin = PlayersDices.Contains(D100_7.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
+                                bool isD100_3Showin = PlayersDice.Contains(D100_3.Show);
+                                bool isD100_4Showin = PlayersDice.Contains(D100_4.Show);
+                                bool isD100_5Showin = PlayersDice.Contains(D100_5.Show);
+                                bool isD100_6Showin = PlayersDice.Contains(D100_6.Show);
+                                bool isD100_7Showin = PlayersDice.Contains(D100_7.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                                 if (!isD100_3Showin)
                                 {
                                     D100_3.Roll();
-                                    PlayersDices.Add(D100_3.Show);
-                                    PlayersDicesValues.Add(D100_3.getValue());
+                                    PlayersDice.Add(D100_3.Show);
+                                    PlayersDiceValues.Add(D100_3.getValue());
                                 }
                                 if (!isD100_4Showin)
                                 {
                                     D100_4.Roll();
-                                    PlayersDices.Add(D100_4.Show);
-                                    PlayersDicesValues.Add(D100_4.getValue());
+                                    PlayersDice.Add(D100_4.Show);
+                                    PlayersDiceValues.Add(D100_4.getValue());
                                 }
                                 if (!isD100_5Showin)
                                 {
                                     D100_5.Roll();
-                                    PlayersDices.Add(D100_5.Show);
-                                    PlayersDicesValues.Add(D100_5.getValue());
+                                    PlayersDice.Add(D100_5.Show);
+                                    PlayersDiceValues.Add(D100_5.getValue());
                                 }
                                 if (!isD100_6Showin)
                                 {
                                     D100_6.Roll();
-                                    PlayersDices.Add(D100_6.Show);
-                                    PlayersDicesValues.Add(D100_6.getValue());
+                                    PlayersDice.Add(D100_6.Show);
+                                    PlayersDiceValues.Add(D100_6.getValue());
                                 }
                                 if (!isD100_7Showin)
                                 {
                                     D100_7.Roll();
-                                    PlayersDices.Add(D100_7.Show);
-                                    PlayersDicesValues.Add(D100_7.getValue());
+                                    PlayersDice.Add(D100_7.Show);
+                                    PlayersDiceValues.Add(D100_7.getValue());
                                 }
                             }
                             else if (inputDice == "8W100" ^ inputDice == "8w100" ^ inputDice == "8D100" ^ inputDice == "8d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
-                                bool isD100_3Showin = PlayersDices.Contains(D100_3.Show);
-                                bool isD100_4Showin = PlayersDices.Contains(D100_4.Show);
-                                bool isD100_5Showin = PlayersDices.Contains(D100_5.Show);
-                                bool isD100_6Showin = PlayersDices.Contains(D100_6.Show);
-                                bool isD100_7Showin = PlayersDices.Contains(D100_7.Show);
-                                bool isD100_8Showin = PlayersDices.Contains(D100_8.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
+                                bool isD100_3Showin = PlayersDice.Contains(D100_3.Show);
+                                bool isD100_4Showin = PlayersDice.Contains(D100_4.Show);
+                                bool isD100_5Showin = PlayersDice.Contains(D100_5.Show);
+                                bool isD100_6Showin = PlayersDice.Contains(D100_6.Show);
+                                bool isD100_7Showin = PlayersDice.Contains(D100_7.Show);
+                                bool isD100_8Showin = PlayersDice.Contains(D100_8.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                                 if (!isD100_3Showin)
                                 {
                                     D100_3.Roll();
-                                    PlayersDices.Add(D100_3.Show);
-                                    PlayersDicesValues.Add(D100_3.getValue());
+                                    PlayersDice.Add(D100_3.Show);
+                                    PlayersDiceValues.Add(D100_3.getValue());
                                 }
                                 if (!isD100_4Showin)
                                 {
                                     D100_4.Roll();
-                                    PlayersDices.Add(D100_4.Show);
-                                    PlayersDicesValues.Add(D100_4.getValue());
+                                    PlayersDice.Add(D100_4.Show);
+                                    PlayersDiceValues.Add(D100_4.getValue());
                                 }
                                 if (!isD100_5Showin)
                                 {
                                     D100_5.Roll();
-                                    PlayersDices.Add(D100_5.Show);
-                                    PlayersDicesValues.Add(D100_5.getValue());
+                                    PlayersDice.Add(D100_5.Show);
+                                    PlayersDiceValues.Add(D100_5.getValue());
                                 }
                                 if (!isD100_6Showin)
                                 {
                                     D100_6.Roll();
-                                    PlayersDices.Add(D100_6.Show);
-                                    PlayersDicesValues.Add(D100_6.getValue());
+                                    PlayersDice.Add(D100_6.Show);
+                                    PlayersDiceValues.Add(D100_6.getValue());
                                 }
                                 if (!isD100_7Showin)
                                 {
                                     D100_7.Roll();
-                                    PlayersDices.Add(D100_7.Show);
-                                    PlayersDicesValues.Add(D100_7.getValue());
+                                    PlayersDice.Add(D100_7.Show);
+                                    PlayersDiceValues.Add(D100_7.getValue());
                                 }
                                 if (!isD100_8Showin)
                                 {
                                     D100_8.Roll();
-                                    PlayersDices.Add(D100_8.Show);
-                                    PlayersDicesValues.Add(D100_8.getValue());
+                                    PlayersDice.Add(D100_8.Show);
+                                    PlayersDiceValues.Add(D100_8.getValue());
                                 }
                             }
                             else if (inputDice == "9W100" ^ inputDice == "9w100" ^ inputDice == "9D100" ^ inputDice == "9d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
-                                bool isD100_3Showin = PlayersDices.Contains(D100_3.Show);
-                                bool isD100_4Showin = PlayersDices.Contains(D100_4.Show);
-                                bool isD100_5Showin = PlayersDices.Contains(D100_5.Show);
-                                bool isD100_6Showin = PlayersDices.Contains(D100_6.Show);
-                                bool isD100_7Showin = PlayersDices.Contains(D100_7.Show);
-                                bool isD100_8Showin = PlayersDices.Contains(D100_8.Show);
-                                bool isD100_9Showin = PlayersDices.Contains(D100_9.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
+                                bool isD100_3Showin = PlayersDice.Contains(D100_3.Show);
+                                bool isD100_4Showin = PlayersDice.Contains(D100_4.Show);
+                                bool isD100_5Showin = PlayersDice.Contains(D100_5.Show);
+                                bool isD100_6Showin = PlayersDice.Contains(D100_6.Show);
+                                bool isD100_7Showin = PlayersDice.Contains(D100_7.Show);
+                                bool isD100_8Showin = PlayersDice.Contains(D100_8.Show);
+                                bool isD100_9Showin = PlayersDice.Contains(D100_9.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                                 if (!isD100_3Showin)
                                 {
                                     D100_3.Roll();
-                                    PlayersDices.Add(D100_3.Show);
-                                    PlayersDicesValues.Add(D100_3.getValue());
+                                    PlayersDice.Add(D100_3.Show);
+                                    PlayersDiceValues.Add(D100_3.getValue());
                                 }
                                 if (!isD100_4Showin)
                                 {
                                     D100_4.Roll();
-                                    PlayersDices.Add(D100_4.Show);
-                                    PlayersDicesValues.Add(D100_4.getValue());
+                                    PlayersDice.Add(D100_4.Show);
+                                    PlayersDiceValues.Add(D100_4.getValue());
                                 }
                                 if (!isD100_5Showin)
                                 {
                                     D100_5.Roll();
-                                    PlayersDices.Add(D100_5.Show);
-                                    PlayersDicesValues.Add(D100_5.getValue());
+                                    PlayersDice.Add(D100_5.Show);
+                                    PlayersDiceValues.Add(D100_5.getValue());
                                 }
                                 if (!isD100_6Showin)
                                 {
                                     D100_6.Roll();
-                                    PlayersDices.Add(D100_6.Show);
-                                    PlayersDicesValues.Add(D100_6.getValue());
+                                    PlayersDice.Add(D100_6.Show);
+                                    PlayersDiceValues.Add(D100_6.getValue());
                                 }
                                 if (!isD100_7Showin)
                                 {
                                     D100_7.Roll();
-                                    PlayersDices.Add(D100_7.Show);
-                                    PlayersDicesValues.Add(D100_7.getValue());
+                                    PlayersDice.Add(D100_7.Show);
+                                    PlayersDiceValues.Add(D100_7.getValue());
                                 }
                                 if (!isD100_8Showin)
                                 {
                                     D100_8.Roll();
-                                    PlayersDices.Add(D100_8.Show);
-                                    PlayersDicesValues.Add(D100_8.getValue());
+                                    PlayersDice.Add(D100_8.Show);
+                                    PlayersDiceValues.Add(D100_8.getValue());
                                 }
                                 if (!isD100_9Showin)
                                 {
                                     D100_9.Roll();
-                                    PlayersDices.Add(D100_9.Show);
-                                    PlayersDicesValues.Add(D100_9.getValue());
+                                    PlayersDice.Add(D100_9.Show);
+                                    PlayersDiceValues.Add(D100_9.getValue());
                                 }
                             }
                             else if (inputDice == "10W100" ^ inputDice == "10w100" ^ inputDice == "10D100" ^ inputDice == "10d100")
                             {
-                                bool isD100Showin = PlayersDices.Contains(D100.Show);
-                                bool isD100_2Showin = PlayersDices.Contains(D100_2.Show);
-                                bool isD100_3Showin = PlayersDices.Contains(D100_3.Show);
-                                bool isD100_4Showin = PlayersDices.Contains(D100_4.Show);
-                                bool isD100_5Showin = PlayersDices.Contains(D100_5.Show);
-                                bool isD100_6Showin = PlayersDices.Contains(D100_6.Show);
-                                bool isD100_7Showin = PlayersDices.Contains(D100_7.Show);
-                                bool isD100_8Showin = PlayersDices.Contains(D100_8.Show);
-                                bool isD100_9Showin = PlayersDices.Contains(D100_9.Show);
-                                bool isD100_10Showin = PlayersDices.Contains(D100_10.Show);
+                                bool isD100Showin = PlayersDice.Contains(D100.Show);
+                                bool isD100_2Showin = PlayersDice.Contains(D100_2.Show);
+                                bool isD100_3Showin = PlayersDice.Contains(D100_3.Show);
+                                bool isD100_4Showin = PlayersDice.Contains(D100_4.Show);
+                                bool isD100_5Showin = PlayersDice.Contains(D100_5.Show);
+                                bool isD100_6Showin = PlayersDice.Contains(D100_6.Show);
+                                bool isD100_7Showin = PlayersDice.Contains(D100_7.Show);
+                                bool isD100_8Showin = PlayersDice.Contains(D100_8.Show);
+                                bool isD100_9Showin = PlayersDice.Contains(D100_9.Show);
+                                bool isD100_10Showin = PlayersDice.Contains(D100_10.Show);
                                 if (!isD100Showin)
                                 {
                                     D100.Roll();
-                                    PlayersDices.Add(D100.Show);
-                                    PlayersDicesValues.Add(D100.getValue());
+                                    PlayersDice.Add(D100.Show);
+                                    PlayersDiceValues.Add(D100.getValue());
                                 }
                                 if (!isD100_2Showin)
                                 {
                                     D100_2.Roll();
-                                    PlayersDices.Add(D100_2.Show);
-                                    PlayersDicesValues.Add(D100_2.getValue());
+                                    PlayersDice.Add(D100_2.Show);
+                                    PlayersDiceValues.Add(D100_2.getValue());
                                 }
                                 if (!isD100_3Showin)
                                 {
                                     D100_3.Roll();
-                                    PlayersDices.Add(D100_3.Show);
-                                    PlayersDicesValues.Add(D100_3.getValue());
+                                    PlayersDice.Add(D100_3.Show);
+                                    PlayersDiceValues.Add(D100_3.getValue());
                                 }
                                 if (!isD100_4Showin)
                                 {
                                     D100_4.Roll();
-                                    PlayersDices.Add(D100_4.Show);
-                                    PlayersDicesValues.Add(D100_4.getValue());
+                                    PlayersDice.Add(D100_4.Show);
+                                    PlayersDiceValues.Add(D100_4.getValue());
                                 }
                                 if (!isD100_5Showin)
                                 {
                                     D100_5.Roll();
-                                    PlayersDices.Add(D100_5.Show);
-                                    PlayersDicesValues.Add(D100_5.getValue());
+                                    PlayersDice.Add(D100_5.Show);
+                                    PlayersDiceValues.Add(D100_5.getValue());
                                 }
                                 if (!isD100_6Showin)
                                 {
                                     D100_6.Roll();
-                                    PlayersDices.Add(D100_6.Show);
-                                    PlayersDicesValues.Add(D100_6.getValue());
+                                    PlayersDice.Add(D100_6.Show);
+                                    PlayersDiceValues.Add(D100_6.getValue());
                                 }
                                 if (!isD100_7Showin)
                                 {
                                     D100_7.Roll();
-                                    PlayersDices.Add(D100_7.Show);
-                                    PlayersDicesValues.Add(D100_7.getValue());
+                                    PlayersDice.Add(D100_7.Show);
+                                    PlayersDiceValues.Add(D100_7.getValue());
                                 }
                                 if (!isD100_8Showin)
                                 {
                                     D100_8.Roll();
-                                    PlayersDices.Add(D100_8.Show);
-                                    PlayersDicesValues.Add(D100_8.getValue());
+                                    PlayersDice.Add(D100_8.Show);
+                                    PlayersDiceValues.Add(D100_8.getValue());
                                 }
                                 if (!isD100_9Showin)
                                 {
                                     D100_9.Roll();
-                                    PlayersDices.Add(D100_9.Show);
-                                    PlayersDicesValues.Add(D100_9.getValue());
+                                    PlayersDice.Add(D100_9.Show);
+                                    PlayersDiceValues.Add(D100_9.getValue());
                                 }
                                 if (!isD100_10Showin)
                                 {
                                     D100_10.Roll();
-                                    PlayersDices.Add(D100_10.Show);
-                                    PlayersDicesValues.Add(D100_10.getValue());
+                                    PlayersDice.Add(D100_10.Show);
+                                    PlayersDiceValues.Add(D100_10.getValue());
                                 }
                             }
                             #endregion
@@ -3459,18 +3462,18 @@ namespace simple_rpg_dices_console
                         Console.WriteLine("     Du knallst den Würfelbecher auf den Tisch..");
                         Console.WriteLine();
                         Console.Write("     ");
-                        foreach (Action func in PlayersDices)       // prints all chosen dices
+                        foreach (Action func in PlayersDice)       // prints all chosen dice
                             func();
                         Console.WriteLine();
                         Console.WriteLine();
-                        int dicesSum = (from x in PlayersDicesValues select x).Sum();
-                        Console.WriteLine("     {Ergebnis: " + dicesSum + "} ");     // prints the sum of dices
+                        int diceSum = (from x in PlayersDiceValues select x).Sum();
+                        Console.WriteLine("     {Ergebnis: " + diceSum + "} ");     // prints the sum of dice
                         Console.WriteLine();
                         Console.Write("     Drücke die Anikei-Taste.");
                         Console.ReadKey();
 
-                        PlayersDicesValues.Clear();     //Deleting all entries on HashSets an Lists
-                        PlayersDices.Clear();
+                        PlayersDiceValues.Clear();     // deleting all entries on HashSets and Lists
+                        PlayersDice.Clear();
                         break;
                     }
 
@@ -3499,14 +3502,13 @@ namespace simple_rpg_dices_console
                 Console.WriteLine();
                 Console.WriteLine("     This dice roller was made by an 'undead fish'.");
                 Console.WriteLine();
-                Console.WriteLine("     Danke, dass du gespielt hast!"); // Thank you for watching, or using my code ^^. I hope its not too shitty crap.
+                Console.WriteLine("     Danke, dass du mein Spiel ausprobiert hast!"); // Thank you for watching, or using my code ^^. I hope its not too shitty crap.
                 Console.WriteLine("     Für Fragen, Anregungen, oder Käferberichte, schreib mir gern an 'uf@something-with-tech-stuff.de'. ");
                 Console.WriteLine();
                 Console.WriteLine("     Drück nochmal die Anikei-Taste.");
                 Console.Write("     ");
                 Console.ReadKey();
-            }   // main DiceRollMethod
-
+            }   
             #endregion
 
             #endregion
