@@ -3,12 +3,12 @@ the name says everything functionwise I guess.
 
 For u "JUST GIMME THAT"-guys: The ZIP file is what u're looking for ^^
 
-
 written in C# on .Net 5.0
 Console only application
 
 As I'm completely new to all this coding stuff, this little app was made with the intention of being implemented in a little text based rpg for learning purposes.
 Everyone is welcome to use the code. Please feel free to text me, if u have an idea for optimisation, or if I did something wrong concerning open source manners.
+
 
 (The programm virtualy lets you put dice of diverse kinds into a cup and roll them finaly.) 
 
@@ -17,7 +17,7 @@ MANUAL:
 - Pick a dice by typing "x.Dy"
 (x = amount)
 (y = dice size/kind/sort thingywhatever)
-(D is interchangable with W as in german dice means Würfel.)
+(D is interchangable with W as in german dice means WÃ¼rfel.)
 (Example: 3D6 = program rolls three 6 sided dice. D20 = program rolls one 20 sided dice)
 
 - Program lets u add more dice of different kinds step by step if u like to do so.
