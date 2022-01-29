@@ -13,6 +13,9 @@ Everyone is welcome to use the code. Please feel free to text me, if u have an i
 (The programm virtualy lets you put dice of diverse kinds into a cup and roll them finaly.) 
 
 MANUAL:
+- unpack the zip file, put the folder where u want it, dobble click the exe of prefered language version.
+
+- Ctrl (Strg = GER) + Mousewheel let's you scale the hold app including font size.
 
 - Pick a dice by typing "x.Dy"
 (x = amount)
