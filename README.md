@@ -8,6 +8,7 @@ Console only application
 
 As I'm completely new to all this coding stuff, this little app was made with the intention of being implemented in a little text based rpg for learning purposes.
 Everyone is welcome to use the code. Please feel free to text me, if u have an idea for optimisation, or if I did something wrong concerning open source manners.
+(Note: inside code and game are spelling mistakes regarding the singular and plural of die and dice. The reason is simply my english sucks and I just learned that the singular of dice is die and not dice.)
 
 
 (The programm virtualy lets you put dice of diverse kinds into a cup and roll them finaly.) 
@@ -17,11 +18,11 @@ MANUAL:
 
 - Ctrl (Strg = GER) + Mousewheel let's you scale the hold app including font size.
 
-- Pick a dice by typing "x.Dy"
+- Pick a die by typing "x.Dy"
 (x = amount)
-(y = dice size/kind/sort thingywhatever)
-(D is interchangable with W as in german dice means Würfel.)
-(Example: 3D6 = program rolls three 6 sided dice. D20 = program rolls one 20 sided dice)
+(y = die size/kind/sort thingywhatever)
+(D is interchangable with W as in german die means Würfel.)
+(Example: 3D6 = program rolls three 6 sided dice. D20 = program rolls one 20 sided die)
 
 - Program lets u add more dice of different kinds step by step if u like to do so.
 - Limit of dice per kind is 10 for each roll.
@@ -45,7 +46,7 @@ VERSION 1.0 Notes:
 FOR DEVS:
 - Both program.cs files are inactive, as their namespaces are commented out completely for not conflicting each other. 
   Uncomment one of them to activate.
-- The dice are actually instances of a related class. The block of if states is incredibly big, because it handles every single dice. 
+- The dice are actually instances of a related class. The block of if states is incredibly big, because it handles every single die. 
   Therefor the limit of 10 dice per sort. If anyone has an Idea how it's possible to simplify this and/or let the user manage the maximum amount, 
   feel free to contact me. I would be happy to learn. 
 - The dice are collected in two structures. The first one is a HashSet<Action> for preventing duplicates going to the "cup". 
