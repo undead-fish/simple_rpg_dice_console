@@ -8,7 +8,8 @@ Console only application
 
 As I'm completely new to all this coding stuff, this little app was made with the intention of being implemented in a little text based rpg for learning purposes.
 Everyone is welcome to use the code. Please feel free to text me, if u have an idea for optimisation, or if I did something wrong concerning open source manners.
-(Note: inside code and game are spelling mistakes regarding the singular and plural of die and dice. The reason is simply my english sucks and I just learned that the singular of dice is die and not dice.)
+(Note: inside code and game may apear spelling mistakes regarding the singular and plural of die and dice. The reason is simply my english sucks and I just learned that the singular of dice is die and not dice. 
+This does not break the game mechanics though. feel welcome to report mistakes if u encounter them.)
 
 
 (The programm virtualy lets you put dice of diverse kinds into a cup and roll them finaly.) 
@@ -27,6 +28,8 @@ MANUAL:
 - Program lets u add more dice of different kinds step by step if u like to do so.
 - Limit of dice per kind is 10 for each roll.
 - Letters can be written capitalized and uncapitalized.
+
+
 
 VERSION UPDATE 1.1 Notes:
 
