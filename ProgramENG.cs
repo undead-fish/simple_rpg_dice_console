@@ -47,7 +47,7 @@ namespace simple_rpg_dice_console
         {
             return this.D4Value;
         }
-        public override void Show()    // printMethod in combination with 
+        public override void Show()    // printMethod
         {
             base.Show();
             Console.Write(" shows: " + this.D4Value + "} ");
@@ -218,7 +218,7 @@ namespace simple_rpg_dice_console
 
             #region Dice Ini
 
-            D4 D4 = new D4("D4 No.1", 18139);      // Initializing the single dice for usage.
+            D4 D4 = new D4("D4 No.1", 18139);      // Initializing the single die for usage.
             D4 D4_2 = new D4("D4 No.2", 39841);    // The intitial set value is just a random number from
             D4 D4_3 = new D4("D4 No.3", 57624);    // my mind to set the seeds starting points apart from each other,
             D4 D4_4 = new D4("D4 No.4", 38436);    // to get the thing even more fake randomized if possible.
@@ -226,7 +226,7 @@ namespace simple_rpg_dice_console
             D4 D4_6 = new D4("D4 No.6", 77482);    // Please feel welcome to contact me, if you know the answer.
             D4 D4_7 = new D4("D4 No.7", 66462);    // I'm allways happy to learn! (mail: uf@something-with-thech-stuff.net))
             D4 D4_8 = new D4("D4 No.8", 92492);    // Anyway, don't worry. The value will snap back to
-            D4 D4_9 = new D4("D4 No.9", 11713);    // the correct range of each dice.
+            D4 D4_9 = new D4("D4 No.9", 11713);    // the correct range of each die.
             D4 D4_10 = new D4("D4 No.10", 62018);
 
             D6 D6 = new D6("D6 No.1", 46173);
@@ -504,10 +504,11 @@ namespace simple_rpg_dice_console
                         Console.WriteLine();
                         Console.WriteLine("      {{{{{  Ok, let's roll some dice!  }}}}}");
                         Console.WriteLine();
-                        Console.WriteLine("          What dice you wanna play with?                 (Say e.g. 'D4', '3D12', oder '2D20',.. etc. to put dice into the cup.");
+                        Console.WriteLine("          What dice you wanna play with?                 (Say e.g. 'D4', '3D12', or '2d20',.. etc. to put dice into the cup.");
                         Console.WriteLine("                                                         (You're able to roll 10 dice per kind and runthrough.");
-                        Console.WriteLine("                                                         (Please call only one kind of dice per command and only once per runthrough.");
-                        Console.WriteLine("                                                         (If you call a dice without ammount (e.g. 'D6'), one dice will be assumed.");
+                        Console.WriteLine("                                                         (Please call only one kind of die per command and only once per runthrough.");
+                        Console.WriteLine("                                                         (If you call a die without ammount (e.g. 'D6'), one die will be assumed.");
+                        Console.WriteLine("                                                         (Use Ctrl + mousewheel to scale the hold app including font size.)");
                         Console.WriteLine("                                                         (See README.txt for more Info.)");
                         Console.Write("     ");
 
@@ -3446,7 +3447,7 @@ namespace simple_rpg_dice_console
                             else
                             {
                                 Console.WriteLine();
-                                Console.WriteLine("     Sorry, I don't know that kind of dice.");
+                                Console.WriteLine("     Sorry, I don't know that kind of die.");
                                 Console.WriteLine("     Please only use single letters and integer e.g. '2D10', oder 'D100'.");
                                 Console.WriteLine("     Existing dice are D4, D6, D8, D10, D12, D20 und D100.");
                             }

@@ -23,8 +23,8 @@ namespace simple_rpg_dice_console
         {
             return this.Name;
         }
-        public virtual void Show()   // printMethod in preparation for correct name print,
-        {                            // in console for each object instance
+        public virtual void Show()   // printMethod
+        {                            
             Console.Write("{" + this.Name);
         }
 
@@ -218,7 +218,7 @@ namespace simple_rpg_dice_console
 
             #region Dice Ini
 
-            D4 D4 = new D4("W4 Nr.1", 18139);      // Initializing the single dice for usage.
+            D4 D4 = new D4("W4 Nr.1", 18139);      // Initializing the single die for usage.
             D4 D4_2 = new D4("W4 Nr.2", 39841);    // The intitial set value is just a random number from
             D4 D4_3 = new D4("W4 Nr.3", 57624);    // my mind to set the seeds starting points apart from each other,
             D4 D4_4 = new D4("W4 Nr.4", 38436);    // to get the thing even more fake randomized if possible.
@@ -226,7 +226,7 @@ namespace simple_rpg_dice_console
             D4 D4_6 = new D4("W4 Nr.6", 77482);    // Please feel welcome to contact me, if you know the answer.
             D4 D4_7 = new D4("W4 Nr.7", 66462);    // I'm allways happy to learn! (mail: uf@something-with-thech-stuff.net))
             D4 D4_8 = new D4("W4 Nr.8", 92492);    // Anyway, don't worry. The value will snap back to
-            D4 D4_9 = new D4("W4 Nr.9", 11713);    // the correct range of each dice.
+            D4 D4_9 = new D4("W4 Nr.9", 11713);    // the correct range of each die.
             D4 D4_10 = new D4("W4 Nr.10", 62018);
 
             D6 D6 = new D6("W6 Nr.1", 46173);
@@ -509,6 +509,7 @@ namespace simple_rpg_dice_console
                         Console.WriteLine("                                                         (Du kannst insgesamt 10 Würfel je Sorte auf einmal spielen.");
                         Console.WriteLine("                                                         (Bitte nenne nur eine Würfelart zurzeit und diese nur einmal pro Durchgang.");
                         Console.WriteLine("                                                         (Wenn du einen Würfel ohne Vorzähler angibst(zB.: 'W6'), wird ein Würfel angenommen.");
+                        Console.WriteLine("                                                         (Benutze Strg + Mausrad um die App inklusive Schriftgrpöße zu skalieren.");
                         Console.WriteLine("                                                         (Siehe README.txt für mehr Info.");
                         Console.Write("     ");
 
